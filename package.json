@@ -1,0 +1,28 @@
+{
+  "name": "hypergl",
+  "version": "0.0.1",
+  "description": "无",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "npm run build",
+    "test": "jest",
+    "demo": "webpack --display-error-details --progress --colors --watch",
+    "watch": "webpack --display-error-details --progress --colors --watch",
+    "build": "webpack --display-error-details --progress --colors",
+    "publish": "rm -rf lib&&tsc --outDir lib"
+  },
+  "author": "ldh",
+  "license": "ISC",
+  "dependencies": {
+    "babylonjs": "^3.2.0-alphaC"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.12",
+    "browser-sync-webpack-plugin": "^1.2.0",
+    "jest": "^21.2.1",
+    "ts-loader": "^0.8.2",
+    "typescript": "^2.8.0-insiders.20180127",
+    "webpack": "^2.7.0",
+    "webpack-dev-server": "^2.11.1"
+  }
+}
