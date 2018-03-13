@@ -1,0 +1,14 @@
+image: node:latest
+
+cache:
+  paths:
+  - node_modules/
+
+stages:
+  - log
+  
+job_build:
+  stage: log
+  script:
+    - echo "deploy over..."
+
