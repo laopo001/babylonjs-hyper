@@ -8,3 +8,9 @@ export enum RenderMode {
 }
 
 export const KEY = '__hypergl__';
+
+
+export interface PGLTAG {
+    Scene;
+    Sphere;
+}

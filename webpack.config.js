@@ -38,5 +38,5 @@ module.exports = {
         alias: {
         }
     },
-    devtool: 'source-map'
+    // devtool: 'source-map'
 };

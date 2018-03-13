@@ -3,9 +3,11 @@
  */
 
 const EMPTY_CHILDREN = [];
-import { Node } from './node'
+import { Node, ComponentClass, Key, Attributes } from './index'
 
-export function h(nodeName: string | Function, props, children?) {
+
+
+export function h<P>(type: ComponentClass, props?: P, ...children: Node[]): Node<P> {
     if (arguments.length > 2) {
         const children = [];
         const obj = { index: 0 };
@@ -23,9 +25,10 @@ export function h(nodeName: string | Function, props, children?) {
             }
 
         }
-        return new Node(nodeName, props, children);
+        return new Node(type, props, children);
     } else {
-        return new Node(nodeName, props);
+        return new Node(type, props, []);
     }
 }
+
 

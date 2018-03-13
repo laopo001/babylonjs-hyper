@@ -1,8 +1,12 @@
 import { Engine } from "babylonjs";
 
-export class Scene {
+
+import { Component } from '../index';
+
+export class Scene extends Component<any>  {
     inst: BABYLON.Scene;
-    constructor(engine: BABYLON.Engine) {
+    constructor(engine) {
+        super({})
         this.inst = new BABYLON.Scene(engine);
     }
 }

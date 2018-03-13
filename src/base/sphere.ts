@@ -1,11 +1,19 @@
+import * as BABYLON from "babylonjs";
+import { Engine } from "babylonjs";
 import { Scene, Component } from '../index';
-interface abc {
-
+export interface SphereProps {
+    name: string,
+    segments: number,
+    diameter: number,
+    updatable?: boolean,
+    sideOrientation?: number
 }
 
-export class Sphere extends Component<abc> {
+export class Sphere extends Component<SphereProps> {
     inst: BABYLON.Mesh;
-    constructor(name: string, segments: number, diameter: number, scene?: Scene, updatable?: boolean, sideOrientation?: number) {
-        this.inst = BABYLON.Mesh.CreateSphere(name, segments, diameter, scene.inst, updatable, BABYLON.Mesh.FRONTSIDE);
+    setState() { }
+    constructor(props, scene, context) {
+        super(props)
+        this.inst = BABYLON.Mesh.CreateSphere(props.name, props.segments, props.diameter, scene.inst, props.updatable, BABYLON.Mesh.FRONTSIDE);
     }
 }
