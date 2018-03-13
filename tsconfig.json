@@ -21,6 +21,7 @@
     ],
     "outDir": "node_modules/hypergl",
     "types": [
+      "babylonjs"
     ],
     "allowSyntheticDefaultImports": true
   },

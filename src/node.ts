@@ -4,7 +4,6 @@ export class Node {
     constructor(public type, public props, children?) {
         this.props = this.props == null ? {} : this.props;
         this.key = this.props.key;
-        this.type = name;
         if (children) {
             if (children.length === 0) {
                 this.props.children = children;
@@ -15,7 +14,7 @@ export class Node {
             }
         }
     }
-    get children() {
+    get children(): Node[] {
         if (this.props.children == null) { return []; }
         if (Array.isArray(this.props.children)) {
             return this.props.children;

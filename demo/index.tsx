@@ -2,7 +2,8 @@
  * @author dadigua
  */
 
-import PGL, { Sphere, render } from '../src/index';
+import PGL, { Sphere, render, Scene } from '../src/index';
+
 
 
 var canvas = document.getElementById('root');
