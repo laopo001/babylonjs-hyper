@@ -7,7 +7,7 @@ import { Node, Component, Key, Attributes } from './index'
 import { ComponentClass } from './component';
 
 
-export function h<P>(type: ComponentClass, props?: P, ...children: Node[]): Node<P> {
+export function h<P>(type: ComponentClass | string, props?: P, ...children: Node[]): Node<P> {
     if (arguments.length > 2) {
         const newChildren = [];
         const obj = { index: 0 };
