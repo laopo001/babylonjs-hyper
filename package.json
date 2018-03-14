@@ -14,7 +14,6 @@
   "author": "ldh",
   "license": "ISC",
   "dependencies": {
-    "@types/react": "^16.0.40",
     "babylonjs": "^3.2.0-alphaC"
   },
   "devDependencies": {
@@ -23,7 +22,6 @@
     "jest": "^21.2.1",
     "ts-loader": "^0.8.2",
     "typescript": "^2.8.0-insiders.20180127",
-    "webpack": "^2.7.0",
-    "webpack-dev-server": "^2.11.1"
+    "webpack": "^2.7.0"
   }
 }

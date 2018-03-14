@@ -19,7 +19,7 @@ export class Sphere extends Component<SphereProps> {
     inst: BABYLON.Mesh;
     setState() { }
     constructor(props, scene, context) {
-        super(props)
+        super(props, scene, context)
         // this.inst = BABYLON.Mesh.CreateSphere(props.name, props.segments, props.diameter, scene.inst, props.updatable, BABYLON.Mesh.FRONTSIDE);
     }
     render() {
