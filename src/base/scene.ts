@@ -9,4 +9,7 @@ export class Scene extends Component<any>  {
         super({})
         this.inst = new BABYLON.Scene(engine);
     }
+    render(){
+        return null;
+    }
 }

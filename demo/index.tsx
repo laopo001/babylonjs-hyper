@@ -11,5 +11,5 @@ var canvas = document.getElementById('root');
 
 
 render(<Scene >
-    <Sphere name='11' segments={16}  diameter={2}  ref={(x) => { console.log(x.inst) }}/>
+    <Sphere name='123' segments={16}  diameter={2} ref={(x) => { console.log(x.inst) }}/>
 </Scene>, canvas);

@@ -13,7 +13,9 @@ export function create(root: Node, engine) {
 export function run(node: Node, scene) {
     if (node instanceof Node) {
         let C = node.type;
-        new C(node.props, scene)
+        let props = Object.assign({}, node.props, C.defaultProps)
+        let c = new C(props, scene)
+        c.render();
         runChildren(node.children, scene);
     }
 }
