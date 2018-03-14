@@ -11,6 +11,5 @@ stages:
   stage: deploy
   script:
     - echo 'start'
-    - echo $(pwd)
-    - echo touch 13.txt
+    - echo $(ls)
 
