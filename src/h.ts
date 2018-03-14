@@ -3,32 +3,39 @@
  */
 
 const EMPTY_CHILDREN = [];
-import { Node, ComponentClass, Key, Attributes } from './index'
-
+import { Node, Component, Key, Attributes } from './index'
+import { ComponentClass } from './component';
 
 
 export function h<P>(type: ComponentClass, props?: P, ...children: Node[]): Node<P> {
     if (arguments.length > 2) {
-        const children = [];
+        const newChildren = [];
         const obj = { index: 0 };
         for (let i = 2; i < arguments.length; i++) {
             let item = arguments[i]
             if (typeof item === 'boolean') {
-                children.push(null);
+                newChildren.push(null);
             } else if (Array.isArray(item)) {
-                let x;
-                while (x = item.pop()) {
-                    item.push(x);
-                }
+                addChild(newChildren, item);
             } else {
-                children.push(item);
+                newChildren.push(item);
             }
 
         }
-        return new Node(type, props, children);
+        return new Node(type, props, newChildren);
     } else {
         return new Node(type, props, []);
     }
 }
 
 
+function addChild(newChildren, item) {
+    let x;
+    while (x = item.pop()) {
+        if (Array.isArray(x)) {
+            addChild(newChildren, x)
+        } else {
+            newChildren.push(x);
+        }
+    }
+}

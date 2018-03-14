@@ -1,6 +1,6 @@
 import * as BABYLON from "babylonjs";
-import { Engine } from "babylonjs";
-import { Scene, Component } from '../index';
+// import { Engine } from "babylonjs";
+import { Scene, Component, Mesh } from '../index';
 import { BaseProps } from '../config/props';
 
 
@@ -12,7 +12,7 @@ export interface SphereProps extends BaseProps {
     sideOrientation?: number
 }
 
-export class Sphere extends Component<SphereProps> {
+export class Sphere extends Mesh<SphereProps> {
     static defaultprops = {
         updatable: false
     }
@@ -20,11 +20,10 @@ export class Sphere extends Component<SphereProps> {
     setState() { }
     constructor(props, scene, context) {
         super(props, scene, context)
-        // this.inst = BABYLON.Mesh.CreateSphere(props.name, props.segments, props.diameter, scene.inst, props.updatable, BABYLON.Mesh.FRONTSIDE);
     }
-    render() {
+    create() {
         let { props, scene } = this;
-        this.inst = BABYLON.Mesh.CreateSphere(props.name, props.segments, props.diameter, scene.inst, props.updatable, BABYLON.Mesh.FRONTSIDE);
+        this.inst = BABYLON.Mesh.CreateSphere(props.name, props.segments, props.diameter, scene, props.updatable, BABYLON.Mesh.FRONTSIDE);
         return null;
     }
 }

@@ -1,6 +1,4 @@
 import { Engine } from "babylonjs";
-
-
 import { Component } from '../index';
 
 export class Scene extends Component<any>  {
@@ -9,7 +7,7 @@ export class Scene extends Component<any>  {
         super({})
         this.inst = new BABYLON.Scene(engine);
     }
-    render(){
+    create(){
         return null;
     }
 }

@@ -9,6 +9,7 @@ import { h } from './h';
 export * from './component';
 export * from './base/sphere';
 export * from './base/scene';
+export * from './base/ground';
 export * from './render';
 export * from './node';
 export * from './run';

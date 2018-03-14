@@ -1,6 +1,22 @@
 import * as BABYLON from 'babylonjs';
 
-import { create, run, Node } from './index';
+import { create, run, Node, Enity } from './index';
+
+
+export const update_queue: Enity[] = []
+export const next_queue: Function[] = []
+function call_update_queue() {
+    for (let i = 0; i < update_queue.length; i++) {
+        update_queue[i].update()
+    }
+}
+function call_next_queue() {
+    let cb;
+    while (cb = next_queue.pop()) {
+        cb()
+    }
+}
+
 
 
 export function render(root: Node, canvas) {
@@ -9,9 +25,6 @@ export function render(root: Node, canvas) {
     var engine = new BABYLON.Engine(canvas as HTMLCanvasElement, true, { preserveDrawingBuffer: true, stencil: true });
     // CreateScene function that creates and return the scene
     var scene = create(root, engine);
-    // Create a basic BJS Scene object
-
-
     // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
     var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene);
     // Target the camera to scene origin
@@ -20,16 +33,10 @@ export function render(root: Node, canvas) {
     camera.attachControl(canvas, false);
     // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
     var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
-    // Create a built-in "sphere" shape; its constructor takes 6 params: name, segment, diameter, scene, updatable, sideOrientation
-    // var sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, scene, false, BABYLON.Mesh.FRONTSIDE);
-    // // Move the sphere upward 1/2 of its height
-    // sphere.position.y = 1;
-    // Create a built-in "ground" shape; its constructor takes 6 params : name, width, height, subdivision, scene, updatable
-    var ground = BABYLON.Mesh.CreateGround('ground1', 6, 6, 2, scene, false);
-    // call the createScene function
-
     // run the render loop
     engine.runRenderLoop(function () {
+        call_next_queue();
+        call_update_queue();
         scene.render();
     });
     // the canvas/window resize event handler

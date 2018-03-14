@@ -4,30 +4,11 @@ import { Component, ComponentClass } from './index';
 
 export class Node<P extends Attributes =any> {
     key: Key | null;
-    constructor(public type: ComponentClass, public props: P, public children?: Node[]) {
+    constructor(public type: ComponentClass | string, public props: P, public children?: Node[]) {
         this.props = this.props == null ? {} as P : this.props;
-
         this.key = this.props.key;
         this.props.children = children;
-        // if (children) {
-        //     if (children.length === 0) {
-        //         this.props.children = null;
-        //     } else if (children.length === 1) {
-        //         this.props.children = children[0];
-        //     } else if (children.length > 1) {
-        //         this.props.children = children;
-        //     }
-        // }
     }
-    // get children() {
-    //     if (this.props.children == null) { return []; }
-    //     if (Array.isArray(this.props.children)) {
-    //         return this.props.children;
-    //     } else {
-    //         return [this.props.children];
-    //     }
-    // }
-
 }
 
 export type PNode = Node | string | number | boolean | null | undefined;
@@ -72,7 +53,7 @@ interface ReactPropTypes {
     objectOf(type: Validator<any>): Requireable<any>;
     shape(type: ValidationMap<any>): Requireable<any>;
 }
-interface ComponentClass<P = {}> {
+interface Component<P = {}> {
     new(props: P, context?: any): Component<P>;
     propTypes?: ValidationMap<P>;
     contextTypes?: ValidationMap<any>;
