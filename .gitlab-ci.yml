@@ -5,10 +5,11 @@ cache:
   - node_modules/
 
 stages:
-  - log
+  - deploy
   
-job_build:
-  stage: log
+打包:
+  stage: deploy
   script:
-    - echo "deploy over..."
+    - echo 'start'
+    - echo $(pwd)
 
