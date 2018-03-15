@@ -32,12 +32,12 @@ export function render(root: Node, canvas) {
     // Attach the camera to the canvas
     camera.attachControl(canvas, false);
     // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
-    var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
+    // var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
     // run the render loop
     engine.runRenderLoop(function () {
-        call_next_queue();
         call_update_queue();
         scene.render();
+        call_next_queue();
     });
     // the canvas/window resize event handler
     window.addEventListener('resize', function () {

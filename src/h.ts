@@ -8,24 +8,20 @@ import { ComponentClass } from './component';
 
 
 export function h<P>(type: ComponentClass | string, props?: P, ...children: Node[]): Node<P> {
-    if (arguments.length > 2) {
-        const newChildren = [];
-        const obj = { index: 0 };
-        for (let i = 2; i < arguments.length; i++) {
-            let item = arguments[i]
-            if (typeof item === 'boolean') {
-                newChildren.push(null);
-            } else if (Array.isArray(item)) {
-                addChild(newChildren, item);
-            } else {
-                newChildren.push(item);
-            }
-
+    const newChildren = [];
+    const obj = { index: 0 };
+    for (let i = 0; i < children.length; i++) {
+        let item = children[i]
+        if (typeof item === 'boolean') {
+            newChildren.push(null);
+        } else if (Array.isArray(item)) {
+            addChild(newChildren, item);
+        } else {
+            newChildren.push(item);
         }
-        return new Node(type, props, newChildren);
-    } else {
-        return new Node(type, props, []);
+
     }
+    return new Node(type, props, newChildren);
 }
 
 

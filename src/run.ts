@@ -30,23 +30,27 @@ export function run(node: Node, scene, context) {
             c.create();
             runChildren(node.children, scene, context);
         }
+        return c;
     }
 }
 
-export function runChildren(nodes: Node[], scene, context) {
+export function runChildren(nodes: Node[], scene, context, parent?: Enity) {
     for (let i = 0; i < nodes.length; i++) {
         let node = nodes[i];
-        run(node, scene, context)
+        let c = run(node, scene, context)
+        if (parent) {
+            parent.children.push(c);
+        }
     }
+
 }
 
 function renderEnity(enity: Enity, scene, context) {
     update_queue.push(enity)
-
-    let node = enity.create()
-    if (node.type === 'content') {
-        runChildren(node.children, scene, context);
+    let temp = enity.create()
+    if (Array.isArray(temp)) {
+        runChildren(temp, scene, context, enity);
     } else {
-        run(node, scene, context)
+        runChildren([temp], scene, context, enity);
     }
 }

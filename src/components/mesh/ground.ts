@@ -1,9 +1,8 @@
 
 import * as BABYLON from "babylonjs";
-import { Scene, Mesh } from '../index';
-import { BaseProps } from '../config/props';
+import { Scene, Mesh } from '../../index';
 
-interface GroundProps extends BaseProps {
+interface GroundProps {
     name: string;
     width: number;
     height: number;
@@ -12,9 +11,7 @@ interface GroundProps extends BaseProps {
 }
 
 export class Ground extends Mesh<GroundProps> {
-    static defaultprops = {
-        updatable: false
-    }
+    static defaultProps = Mesh.defaultProps;
     inst: BABYLON.Mesh;
     constructor(props, scene, context) {
         super(props, scene, context)
@@ -22,6 +19,6 @@ export class Ground extends Mesh<GroundProps> {
     create() {
         let { props, scene } = this;
         this.inst = BABYLON.Mesh.CreateGround(props.name, props.width, props.height, props.subdivisions, scene, props.updatable);
-        return null;
+        super.create();
     }
 }

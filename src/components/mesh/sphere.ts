@@ -1,10 +1,8 @@
 import * as BABYLON from "babylonjs";
 // import { Engine } from "babylonjs";
-import { Scene, Component, Mesh } from '../index';
-import { BaseProps } from '../config/props';
+import { Scene, Component, Mesh } from '../../index';
 
-
-export interface SphereProps extends BaseProps {
+export interface SphereProps {
     name: string,
     segments: number,
     diameter: number,
@@ -13,9 +11,7 @@ export interface SphereProps extends BaseProps {
 }
 
 export class Sphere extends Mesh<SphereProps> {
-    static defaultprops = {
-        updatable: false
-    }
+    static defaultProps = Mesh.defaultProps;
     inst: BABYLON.Mesh;
     setState() { }
     constructor(props, scene, context) {
@@ -24,7 +20,7 @@ export class Sphere extends Mesh<SphereProps> {
     create() {
         let { props, scene } = this;
         this.inst = BABYLON.Mesh.CreateSphere(props.name, props.segments, props.diameter, scene, props.updatable, BABYLON.Mesh.FRONTSIDE);
-        return null;
+        super.create();
     }
 }
 

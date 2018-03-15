@@ -1,7 +1,5 @@
 import { Component, ComponentClass } from './index';
 
-
-
 export class Node<P extends Attributes =any> {
     key: Key | null;
     constructor(public type: ComponentClass | string, public props: P, public children?: Node[]) {
@@ -11,7 +9,7 @@ export class Node<P extends Attributes =any> {
     }
 }
 
-export type PNode = Node | string | number | boolean | null | undefined;
+export type PGLNode = Node | Node[] | string | number | boolean | null | undefined;
 
 export type Key = string | number;
 
