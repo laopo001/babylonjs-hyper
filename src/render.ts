@@ -17,9 +17,11 @@ function call_next_queue() {
     }
 }
 
+interface Option {
+    debugger: boolean
+}
 
-
-export function render(root: Node, canvas) {
+export function render(root: Node, canvas, option: Option = { debugger: false }) {
     if (canvas == null) { console.error('canvas not found'); return; }
     // Load the 3D engine
     var engine = new BABYLON.Engine(canvas as HTMLCanvasElement, true, { preserveDrawingBuffer: true, stencil: true });
@@ -33,6 +35,9 @@ export function render(root: Node, canvas) {
     camera.attachControl(canvas, false);
     // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
     // var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
+    if (option.debugger) {
+        scene.debugLayer.show();
+    }
     // run the render loop
     engine.runRenderLoop(function () {
         call_update_queue();

@@ -25,7 +25,7 @@ export interface ComponentClass<P extends ClassAttributes<P>={}> {
 export abstract class Mesh<P> extends Component<P> {
     static defaultProps = {
         updatable: false,
-        position: [0, 0, 0]
+        position: [0, 0, 0],
     }
     readonly type = 'Mesh';
     inst: BABYLON.Mesh;
@@ -35,7 +35,7 @@ export abstract class Mesh<P> extends Component<P> {
     }
     create() {
         let { props, scene } = this;
-        this.inst.position = new BABYLON.Vector3(props.position[0] || this.props.x, props.position[1] || this.props.y, props.position[2] || this.props.z)
+        this.inst.position = new BABYLON.Vector3(props.position[0], props.position[1], props.position[2])
     }
 }
 
