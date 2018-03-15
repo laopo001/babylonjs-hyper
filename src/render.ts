@@ -21,7 +21,8 @@ interface Option {
     debugger: boolean
 }
 
-export function render(root: Node, canvas, option: Option = { debugger: false }) {
+export function render(root: Node, canvas, option?: Option) {
+    option = Object.assign(option || {}, { debugger: false })
     if (canvas == null) { console.error('canvas not found'); return; }
     // Load the 3D engine
     var engine = new BABYLON.Engine(canvas as HTMLCanvasElement, true, { preserveDrawingBuffer: true, stencil: true });
