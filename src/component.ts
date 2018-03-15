@@ -1,10 +1,10 @@
-import { PGLNode, Node, ValidationMap } from './index';
+import { HGLNode, Node, ValidationMap } from './index';
 import { ClassAttributes } from './node';
 import { BaseMeshProps } from './components/props';
 import { next_queue } from './render';
 import * as BABYLON from "babylonjs";
 export abstract class Component<P =any> {
-    props: Readonly<{ children?: PGLNode }> & Readonly<P>;
+    props: Readonly<{ children?: HGLNode }> & Readonly<P>;
     type = 'Component';
     constructor(props, public scene?, public context?: any) {
         this.props = props;

@@ -22,7 +22,7 @@ class Root extends Enity<any>{
     groud: Ground;
     create() {
         return [
-            <Sphere position={[1, 2, 3]} name='123' segments={16} diameter={2} />,
+            <Sphere position={[1, 2, 0]} name='123' segments={16} diameter={2} />,
             <Ground name='1' width={10} height={10} subdivisions={1} ref={(x) => { this.groud = x; }} />
         ]
     }

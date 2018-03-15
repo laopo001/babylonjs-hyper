@@ -9,7 +9,7 @@ export class Node<P extends Attributes =any> {
     }
 }
 
-export type PGLNode = Node | Node[] | string | number | boolean | null | undefined;
+export type HGLNode = Node | Node[] | string | number | boolean | null | undefined;
 
 export type Key = string | number;
 
