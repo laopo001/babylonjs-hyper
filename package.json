@@ -9,6 +9,7 @@
     "demo": "webpack --display-error-details --progress --colors --watch",
     "watch": "webpack --display-error-details --progress --colors --watch",
     "build": "webpack --display-error-details --progress --colors",
+    "deploy": "node deploy/index.js",
     "publish": "rm -rf lib&&tsc --outDir lib"
   },
   "author": "ldh",
@@ -17,8 +18,10 @@
     "babylonjs": "^3.2.0-alphaC"
   },
   "devDependencies": {
+    "ali-oss": "^4.13.2",
     "browser-sync": "^2.18.12",
     "browser-sync-webpack-plugin": "^1.2.0",
+    "co": "^4.6.0",
     "jest": "^21.2.1",
     "ts-loader": "^0.8.2",
     "typescript": "^2.8.0-insiders.20180127",

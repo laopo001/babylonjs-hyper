@@ -14,6 +14,5 @@ stages:
     - echo $(ls)
     - npm install --registry=https://registry.npm.taobao.org --disturl=https://npm.taobao.org/dist
     - npm run build
-    - touch 1
-    - scp 1 root@dadigua.win:/root/
+    - npm run deploy
 
