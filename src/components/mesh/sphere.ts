@@ -3,7 +3,7 @@ import * as BABYLON from "babylonjs";
 import { Scene, Component, Mesh } from '../../index';
 
 export interface SphereProps {
-    name: string,
+    name?: string,
     segments: number,
     diameter: number,
     updatable?: boolean,
@@ -14,12 +14,12 @@ export class Sphere extends Mesh<SphereProps> {
     static defaultProps = Mesh.defaultProps;
     inst: BABYLON.Mesh;
     setState() { }
-    constructor(props, scene, context) {
-        super(props, scene, context)
+    constructor(props, innerContext, context) {
+        super(props, innerContext, context)
     }
     create() {
-        let { props, scene } = this;
-        this.inst = BABYLON.Mesh.CreateSphere(props.name, props.segments, props.diameter, scene, props.updatable, BABYLON.Mesh.FRONTSIDE);
+        let { props, innerContext } = this;
+        this.inst = BABYLON.Mesh.CreateSphere(props.name, props.segments, props.diameter, innerContext.scene, props.updatable, BABYLON.Mesh.FRONTSIDE);
         super.create();
     }
 }

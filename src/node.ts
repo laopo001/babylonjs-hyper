@@ -20,7 +20,7 @@ export interface Attributes {
 
 // export interface IntrinsicAttributes extends Attributes { }
 
-type Ref<T> = { bivarianceHack(instance: T | null): any }["bivarianceHack"];
+export type Ref<T> = { bivarianceHack(instance: T | null): any }["bivarianceHack"];
 
 export interface ClassAttributes<T> extends Attributes {
     ref?: Ref<T>;

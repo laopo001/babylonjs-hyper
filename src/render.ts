@@ -17,7 +17,7 @@ function call_next_queue() {
     }
 }
 
-interface Option {
+export interface Option {
     debugger: boolean
 }
 
@@ -27,13 +27,13 @@ export function render(root: Node, canvas, option?: Option) {
     // Load the 3D engine
     var engine = new BABYLON.Engine(canvas as HTMLCanvasElement, true, { preserveDrawingBuffer: true, stencil: true });
     // CreateScene function that creates and return the scene
-    var scene = create(root, engine);
+    var scene = create(root, { engine, canvas });
     // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
-    var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene);
-    // Target the camera to scene origin
-    camera.setTarget(BABYLON.Vector3.Zero());
-    // Attach the camera to the canvas
-    camera.attachControl(canvas, false);
+    // var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene);
+    // // Target the camera to scene origin
+    // camera.setTarget(BABYLON.Vector3.Zero());
+    // // Attach the camera to the canvas
+    // camera.attachControl(canvas, false);
     // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
     // var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
     if (option.debugger) {

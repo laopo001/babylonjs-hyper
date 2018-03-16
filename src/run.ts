@@ -3,41 +3,50 @@ import { Scene, Node, Component, Enity } from './index';
 import { update_queue } from './render';
 import { ComponentClass } from './component';
 
+export interface InternalContext {
+    engine?: BABYLON.Engine;
+    scene?: BABYLON.Scene;
+    canvas?: HTMLElement;
+}
 
-export function create(root: Node, engine) {
+export function create(root: Node, innerContext: InternalContext) {
+    let { engine } = innerContext;
     console.log('begin')
     if (root.type !== Scene) {
         console.log('必须包括在Scene中'); return;
     }
     let scene = new Scene(engine)
-    runChildren(root.children, scene.inst, {});
+    innerContext.scene = scene.inst;
+    runChildren(root.children, innerContext, {});
     return scene.inst;
 }
 
-export function run(node: Node, scene, context) {
+export function run(node: Node, innerContext: InternalContext, context) {
+    let { scene } = innerContext;
     if (node instanceof Node) {
         let Ctor = node.type;
         let props = Object.assign({}, (Ctor as ComponentClass).defaultProps, node.props)
-        let c = new (Ctor as ComponentClass)(props, scene, context)
+        let c = new (Ctor as ComponentClass)(props, innerContext, context)
         if (props.ref) {
             props.ref(c)
         }
 
         if (c instanceof Enity) {
-            renderEnity(c, scene, context)
+            renderEnity(c, innerContext, context)
 
         } else {
             c.create();
-            runChildren(node.children, scene, context);
+            runChildren(node.children, innerContext, context);
         }
         return c;
     }
 }
 
-export function runChildren(nodes: Node[], scene, context, parent?: Enity) {
+export function runChildren(nodes: Node[], innerContext: InternalContext, context, parent?: Enity) {
+
     for (let i = 0; i < nodes.length; i++) {
         let node = nodes[i];
-        let c = run(node, scene, context)
+        let c = run(node, innerContext, context)
         if (parent) {
             parent.children.push(c);
         }
@@ -45,12 +54,12 @@ export function runChildren(nodes: Node[], scene, context, parent?: Enity) {
 
 }
 
-function renderEnity(enity: Enity, scene, context) {
+function renderEnity(enity: Enity, innerContext: InternalContext, context) {
     update_queue.push(enity)
     let temp = enity.create()
     if (Array.isArray(temp)) {
-        runChildren(temp, scene, context, enity);
+        runChildren(temp, innerContext, context, enity);
     } else {
-        runChildren([temp], scene, context, enity);
+        runChildren([temp], innerContext, context, enity);
     }
 }

@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "无",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "start": "npm run build",
     "test": "jest",
@@ -10,7 +11,7 @@
     "watch": "webpack --display-error-details --progress --colors --watch",
     "build": "webpack --display-error-details --progress --colors",
     "deploy": "node deploy/index.js",
-    "publish": "rm -rf lib&&tsc --outDir lib"
+    "prepublish": "rm -rf lib&&tsc -d --outDir lib"
   },
   "author": "ldh",
   "license": "ISC",

@@ -2,7 +2,7 @@
  * @author dadigua
  */
 
-import PGL, { Sphere, render, Scene, Ground, h, Enity, HemisphericLight } from '../src/index';
+import PGL, { Sphere, render, Scene, Ground, h, Enity, HemisphericLight, FreeCamera } from '../src/index';
 
 
 
@@ -13,7 +13,7 @@ class Root extends Enity<any>{
         super(props, scene, context)
         this.next(() => {
             // this.groud.inst.position.x = 2;
-            window['node']=this;
+            window['node'] = this;
             console.log(this)
         })
     }
@@ -23,12 +23,13 @@ class Root extends Enity<any>{
     groud: Ground;
     create() {
         return [
-            <Sphere position={[1, 0, 3]} name='123' segments={16} diameter={2} />,
-            <Ground name='1' width={10} height={10} subdivisions={2} ref={(x) => { this.groud = x; }} />
+            <Sphere position={[1, 0, 3]} scaling={[2, 1, 1]} segments={16} diameter={2} />,
+            <Ground width={10} height={10} subdivisions={2} ref={(x) => { this.groud = x; }} />
         ]
     }
 }
 render(<Scene>
-    <HemisphericLight name='2' position={[0, 1, 0]} />
+    <HemisphericLight  position={[0, 1, 0]} />
+    <FreeCamera position={[0, 5, -10]}  target={[0,0,0]}/>
     <Root />
-</Scene>, canvas,{debugger:false});
+</Scene>, canvas, { debugger: false });
