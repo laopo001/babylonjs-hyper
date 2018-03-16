@@ -23,13 +23,17 @@ class Root extends Enity<any>{
     groud: Ground;
     create() {
         return [
-            <Sphere position={[1, 0, 3]} scaling={[2, 1, 1]} segments={16} diameter={2} />,
+            <Sphere position={[1, 0, 3]} scaling={[1, 2, 1]} segments={16} diameter={2} />,
             <Ground width={10} height={10} subdivisions={2} ref={(x) => { this.groud = x; }} />
         ]
     }
 }
 render(<Scene>
-    <HemisphericLight  position={[0, 1, 0]} />
-    <FreeCamera position={[0, 5, -10]}  target={[0,0,0]}/>
-    <Root />
+    <HemisphericLight position={[0, 1, 0]} />
+    <FreeCamera position={[0, 5, -10]} target={[0, 0, 0]} />
+    {/* <Root /> */}
+    <Enity>
+        <Sphere position={[1, 0, 3]} scaling={[1, 2, 1]} segments={16} diameter={2} />
+        <Ground width={10} height={10} subdivisions={2} ref={(x) => { this.groud = x; }} />
+    </Enity>
 </Scene>, canvas, { debugger: false });

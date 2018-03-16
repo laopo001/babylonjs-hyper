@@ -108,5 +108,6 @@ export abstract class Enity<P extends ClassAttributes<P>=any> extends Component<
         next_queue.push(cb);
     }
     update() { }
-    abstract create(): Node<any>[] | Node<any>;
+    // abstract create(): Node<any>[] | Node<any>;
+    create(){return this.props.children}
 }

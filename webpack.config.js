@@ -15,6 +15,7 @@ module.exports = {
     },
     //插件项
     plugins: [
+        new webpack.NoEmitOnErrorsPlugin(),
         new BrowserSyncPlugin({
             // proxy: 'localhost:80',//要代理的端口
             host: 'localhost',
@@ -38,5 +39,5 @@ module.exports = {
         alias: {
         }
     },
-    // devtool: 'source-map'
+    devtool: 'source-map'
 };
