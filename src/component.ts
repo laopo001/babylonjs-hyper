@@ -6,12 +6,14 @@ import * as BABYLON from "babylonjs";
 export abstract class Component<P =any> {
     props: Readonly<{ children?: HGLNode }> & Readonly<P>;
     type = 'Component';
+    inst: any;
+    // parent: BABYLON.TransformNode;
     constructor(props, public innerContext?, public context?: any) {
         this.props = props;
     }
     util = {
-        Nums3ToVector3(nums:number[]) {
-            return new BABYLON.Vector3(nums[0],nums[1],nums[2]);
+        Nums3ToVector3(nums: number[]) {
+            return new BABYLON.Vector3(nums[0], nums[1], nums[2]);
         }
     }
     // update() { }
@@ -26,13 +28,13 @@ export interface ComponentClass<P extends ClassAttributes<P>={}> {
 }
 
 
-export abstract class TransformComponent<P> extends Component<P> {
+export abstract class TransformComponent<P=any> extends Component<P> {
     static defaultProps = {
         position: [0, 0, 0],
         rotation: [0, 0, 0],
         scaling: [1, 1, 1]
     }
-    readonly type = 'Mesh';
+    type = 'TransformComponent';
     inst: BABYLON.TransformNode;
     props: Readonly<P> & Readonly<TransformProps>;
     constructor(props, innerContext, context) {
@@ -42,7 +44,7 @@ export abstract class TransformComponent<P> extends Component<P> {
         let { props } = this;
         this.inst.position = this.util.Nums3ToVector3(props.position);
         this.inst.rotation = this.util.Nums3ToVector3(props.rotation);
-        this.inst.scaling =  this.util.Nums3ToVector3(props.scaling);
+        this.inst.scaling = this.util.Nums3ToVector3(props.scaling);
     }
 }
 
@@ -97,17 +99,27 @@ export abstract class Camera<P> extends Component<P> {
 
 
 
-export abstract class Enity<P extends ClassAttributes<P>=any> extends Component<P> {
+export abstract class Enity<P extends ClassAttributes<P>=any> extends TransformComponent<P> {
     readonly type = 'Enity';
+    inst: BABYLON.TransformNode;
     children: Component[] = [];
-    props: Readonly<P>;
+    props: Readonly<P> & Readonly<ClassAttributes<P>>;
     constructor(props, innerContext, context) {
         super(props, innerContext, context)
+        this.inst = new BABYLON.TransformNode(props.name);
+        this.next(() => {
+            for (let i = 0; i < this.children.length; i++) {
+                this.children[i].inst.parent = this.inst;
+            }
+        });
     }
     next(cb: Function) {
         next_queue.push(cb);
     }
     update() { }
     // abstract create(): Node<any>[] | Node<any>;
-    create(){return this.props.children}
+    create() {
+        return this.props.children;
+    }
 }
+

@@ -14,6 +14,7 @@ export * from './node';
 export * from './run';
 export * from './h';
 export * from './config/index';
+export * from './out_util';
 
 
 const PGL = {

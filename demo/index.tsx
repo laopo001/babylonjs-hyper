@@ -2,7 +2,7 @@
  * @author dadigua
  */
 
-import PGL, { Sphere, render, Scene, Ground, h, Enity, HemisphericLight, FreeCamera } from '../src/index';
+import PGL, { Sphere, render, Scene, Ground, h, Enity, HemisphericLight, FreeCamera,util } from '../src/index';
 
 
 
@@ -17,8 +17,10 @@ class Root extends Enity<any>{
             console.log(this)
         })
     }
+    @util.setTimeout(200)
     update() {
         // console.log(123);
+        this.inst.rotation.y += 0.01;
     }
     groud: Ground;
     create() {
@@ -31,9 +33,9 @@ class Root extends Enity<any>{
 render(<Scene>
     <HemisphericLight position={[0, 1, 0]} />
     <FreeCamera position={[0, 5, -10]} target={[0, 0, 0]} />
-    {/* <Root /> */}
-    <Enity>
+    <Root />
+    {/* <Enity>
         <Sphere position={[1, 0, 3]} scaling={[1, 2, 1]} segments={16} diameter={2} />
         <Ground width={10} height={10} subdivisions={2} ref={(x) => { this.groud = x; }} />
-    </Enity>
+    </Enity> */}
 </Scene>, canvas, { debugger: false });
