@@ -2,7 +2,7 @@
   "compileOnSave": true,
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "sourceMap": true,
     "declaration": false,
@@ -30,7 +30,8 @@
     "./src/index.ts"
   ],
   "include": [
-    "src"
+    "src",
+    "demo"
   ],
   "exclude": [
     "node_modules"
