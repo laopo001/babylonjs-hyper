@@ -3,3 +3,7 @@ export interface TransformProps {
     rotation?: number[];
     scaling?: number[];
 }
+
+// export interface CollisionProps {
+//     collisionOpen: boolean;
+// }

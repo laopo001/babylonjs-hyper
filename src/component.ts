@@ -1,20 +1,25 @@
-import { HGLNode, Node, ValidationMap } from './index';
-import { ClassAttributes } from './node';
+import { HGLNode, Node, ValidationMap, Collision } from './index';
+import { ClassAttributes, Attributes } from './node';
 import { TransformProps } from './components/props';
 import { next_queue } from './render';
+import { InternalContext } from './run';
 import * as BABYLON from "babylonjs";
 export abstract class Component<P =any> {
     props: Readonly<{ children?: HGLNode }> & Readonly<P>;
     type = 'Component';
     inst: any;
     // parent: BABYLON.TransformNode;
-    constructor(props, public innerContext?, public context?: any) {
+    constructor(props, public innerContext?: InternalContext, public context?: any) {
         this.props = props;
     }
+
     util = {
         Nums3ToVector3(nums: number[]) {
             return new BABYLON.Vector3(nums[0], nums[1], nums[2]);
         }
+    }
+    next(cb: Function) {
+        next_queue.push(cb);
     }
     // update() { }
     abstract create?(): any;
@@ -48,7 +53,7 @@ export abstract class TransformComponent<P=any> extends Component<P> {
     }
 }
 
-export abstract class Mesh<P> extends TransformComponent<P> {
+export abstract class Mesh<P extends Attributes> extends TransformComponent<P> {
     static defaultProps = Object.assign({
         updatable: false,
     }, TransformComponent.defaultProps);
@@ -59,9 +64,23 @@ export abstract class Mesh<P> extends TransformComponent<P> {
         super(props, innerContext, context)
     }
     create() {
+        let { props, innerContext } = this;
+        this.inst['__component__'] = this;
+        this.inst.material = new BABYLON.StandardMaterial("", innerContext.scene);
+        let collision = this.props.children.find((x) => {
+            return x.type === Collision;
+        })
+        if (collision) {
+            let { mass, restitution, type, onCollide } = collision.props;
+            this.inst.physicsImpostor = new BABYLON.PhysicsImpostor(this.inst, type || BABYLON.PhysicsImpostor.BoxImpostor, { mass, restitution }, innerContext.scene);
+            innerContext.collisions.push(this.inst.physicsImpostor)
+            onCollide && this.next(() => {
+                this.inst.physicsImpostor.registerOnPhysicsCollide(innerContext.collisions, onCollide);
+            })
+            // console.log(this.inst, collision)
+        }
+
         super.create();
-        // let { props, innerContext } = this;
-        // this.inst.position = new BABYLON.Vector3(props.position[0], props.position[1], props.position[2])
     }
 }
 
@@ -113,13 +132,13 @@ export abstract class Enity<P extends ClassAttributes<P>=any> extends TransformC
             }
         });
     }
-    next(cb: Function) {
-        next_queue.push(cb);
-    }
+
     update() { }
     // abstract create(): Node<any>[] | Node<any>;
     create() {
         return this.props.children;
     }
 }
+
+
 

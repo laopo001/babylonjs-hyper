@@ -15,7 +15,7 @@ export type Key = string | number;
 
 export interface Attributes {
     key?: Key;
-    children?: Node[] | Node | null;
+    children?: Node[];
     name?: string;
 }
 

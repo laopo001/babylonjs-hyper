@@ -3,10 +3,14 @@ import { Scene, Node, Component, Enity } from './index';
 import { update_queue } from './render';
 import { ComponentClass } from './component';
 
+
+
 export interface InternalContext {
     engine?: BABYLON.Engine;
     scene?: BABYLON.Scene;
     canvas?: HTMLElement;
+    openPhysics?: boolean;
+    collisions?:BABYLON.PhysicsImpostor[]
 }
 
 export function create(root: Node, innerContext: InternalContext) {
@@ -15,7 +19,9 @@ export function create(root: Node, innerContext: InternalContext) {
     if (root.type !== Scene) {
         console.log('必须包括在Scene中'); return;
     }
-    let scene = new Scene(engine)
+    let props = Object.assign({}, Scene.defaultProps, root.props)
+    let scene = new Scene(engine, props, innerContext)
+    scene.create();
     innerContext.scene = scene.inst;
     runChildren(root.children, innerContext, {});
     return scene.inst;
