@@ -4,7 +4,7 @@ import * as BABYLON from "babylonjs";
 export interface DirectionalLightProps {
     position: number[];
     shadow?: boolean;
-    target: number[];
+    target?: number[];
 }
 
 

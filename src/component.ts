@@ -105,7 +105,6 @@ export abstract class Light<P> extends Component<P> {
 
 export abstract class Camera<P> extends Component<P> {
     static defaultProps = {
-        position: [0, 0, 0],
         target: [0, 0, 0]
     }
     type = 'TargetCamera';

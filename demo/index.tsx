@@ -23,21 +23,21 @@ class Root extends Enity<any>{
     xxx;
     update() {
         // console.log(123);
-        // this.inst.rotation.y += 0.01;
+        this.inst.rotation.y += 0.01;
     }
     groud: Ground;
     create() {
         return [
-            <Sphere position={[1, 9, 3]} scaling={[1, 1, 1]} segments={16} diameter={2}>
+            <Sphere cast position={[1, 9, 3]} scaling={[1, 1, 1]} segments={16} diameter={2}>
                 <Collision type={BABYLON.PhysicsImpostor.SphereImpostor} mass={1} restitution={0.5} onCollide={(self: any, collided) => {
                     // 监听碰撞
                     self.object.material.diffuseColor = new BABYLON.Color3(Math.random(), Math.random(), Math.random());
                 }} />
             </Sphere>,
-            <Ground width={10} height={10} subdivisions={2} ref={(x) => { this.groud = x; }}>
+            <Ground receiveShadows width={10} height={10} subdivisions={2} ref={(x) => { this.groud = x; }}>
                 <Collision mass={0} restitution={0.9} />
                 <StandardMaterial >
-                    <ReflectionTexture level={0.1} />
+                    <ReflectionTexture level={1} />
                 </StandardMaterial>
             </Ground>
         ]
@@ -46,19 +46,7 @@ class Root extends Enity<any>{
 render(<Scene physics>
     {/* <HemisphericLight position={[0, 10, -5]} /> */}
     {/* <FreeCamera position={[0, 6, -5]} target={[0, 0, 0]} /> */}
-    <DirectionalLight position={[20, 40, 20]} target={[-1, -2, -1]} shadow/>
-    <ArcRotateCamera target={[0, 0, 0]} />
-    {/* <Root /> */}
-    <Sphere cast position={[1, 9, 3]} scaling={[1, 1, 1]} segments={16} diameter={2}>
-        <Collision type={BABYLON.PhysicsImpostor.SphereImpostor} mass={1} restitution={0.5} onCollide={(self: any, collided) => {
-            // 监听碰撞
-            self.object.material.diffuseColor = new BABYLON.Color3(Math.random(), Math.random(), Math.random());
-        }} />
-    </Sphere>
-    <Ground receiveShadows width={10} height={10} subdivisions={2} ref={(x) => { this.groud = x; }}>
-        <Collision mass={0} restitution={0.9} />
-        <StandardMaterial >
-            <ReflectionTexture level={1} />
-        </StandardMaterial>
-    </Ground>
+    <DirectionalLight position={[20, 40, 20]} target={[-1, -2, -1]} shadow />
+    <ArcRotateCamera target={[0, 0, 0]} radius={30}/>
+    <Root />
 </Scene>, canvas, { debugger: false });

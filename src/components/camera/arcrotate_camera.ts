@@ -3,18 +3,21 @@ import * as BABYLON from "babylonjs";
 
 export interface ArcRotateCameraProps {
     target: number[];
+    radius?: number;
 }
 
 
 export class ArcRotateCamera extends Camera<ArcRotateCameraProps> {
-    static defaultProps = Camera.defaultProps;
+    static defaultProps = Object.assign({
+        radius: 10
+    }, Camera.defaultProps);
     inst: BABYLON.ArcRotateCamera;
     constructor(props, innerContext, context) {
         super(props, innerContext, context)
     }
     create() {
         let { props, innerContext } = this;
-        let camera = new BABYLON.ArcRotateCamera(props.name, 0, 0.8, 10, this.util.Nums3ToVector3(props.target), innerContext.scene);
+        let camera = new BABYLON.ArcRotateCamera(props.name, 0, 0.8, props.radius, this.util.Nums3ToVector3(props.target), innerContext.scene);
         camera.lowerBetaLimit = 0.1;
         camera.upperBetaLimit = (Math.PI / 2) * 0.9;
         camera.lowerRadiusLimit = 10;
