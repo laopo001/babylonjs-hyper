@@ -3,7 +3,6 @@ import * as BABYLON from "babylonjs";
 import { Scene, Component, Mesh } from '../../index';
 
 export interface SphereProps {
-    name?: string,
     segments: number,
     diameter: number,
     updatable?: boolean,

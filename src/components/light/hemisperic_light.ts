@@ -2,7 +2,6 @@ import { Light } from '../../index';
 import * as BABYLON from "babylonjs";
 
 export interface HemisphericLightProps {
-    name?: string;
     position: number[];
 }
 

@@ -3,7 +3,6 @@ import * as BABYLON from "babylonjs";
 import { Scene, Mesh } from '../../index';
 
 export interface GroundProps {
-    name?: string;
     width: number;
     height: number;
     subdivisions: number;

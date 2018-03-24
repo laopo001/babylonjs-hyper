@@ -1,13 +1,22 @@
 import { HGLNode, Node, ValidationMap, Collision } from './index';
 import { ClassAttributes, Attributes } from './node';
-import { TransformProps } from './components/props';
+import { TransformProps, MeshProps } from './components/props';
 import { next_queue } from './render';
 import { InternalContext } from './run';
 import * as BABYLON from "babylonjs";
+
+function inspectArr(nums: number[]) {
+    if (nums[0] == null || nums[1] == null || nums[2] == null) {
+        throw new Error('nums length must be greater than or equal to 3')
+    }
+}
+
 export abstract class Component<P =any> {
     props: Readonly<{ children?: HGLNode }> & Readonly<P>;
     type = 'Component';
     inst: any;
+    parent: null | Component;
+    children: Component[] = [];
     // parent: BABYLON.TransformNode;
     constructor(props, public innerContext?: InternalContext, public context?: any) {
         this.props = props;
@@ -15,7 +24,12 @@ export abstract class Component<P =any> {
 
     util = {
         Nums3ToVector3(nums: number[]) {
+            inspectArr(nums);
             return new BABYLON.Vector3(nums[0], nums[1], nums[2]);
+        },
+        Nums3ToColor3(nums: number[]) {
+            inspectArr(nums);
+            return new BABYLON.Color3(nums[0], nums[1], nums[2]);
         }
     }
     next(cb: Function) {
@@ -53,44 +67,36 @@ export abstract class TransformComponent<P=any> extends Component<P> {
     }
 }
 
-export abstract class Mesh<P extends Attributes> extends TransformComponent<P> {
+export abstract class Mesh<P> extends TransformComponent<P> {
     static defaultProps = Object.assign({
         updatable: false,
+        receiveShadows: false,
+        cast: false
     }, TransformComponent.defaultProps);
     readonly type = 'Mesh';
     inst: BABYLON.Mesh;
-    props: Readonly<P> & Readonly<TransformProps>;
+    props: Readonly<P> & Readonly<TransformProps> & Readonly<ClassAttributes<P>> & Readonly<MeshProps>;
     constructor(props, innerContext, context) {
         super(props, innerContext, context)
     }
     create() {
-        let { props, innerContext } = this;
         this.inst['__component__'] = this;
-        this.inst.material = new BABYLON.StandardMaterial("", innerContext.scene);
-        let collision = this.props.children.find((x) => {
-            return x.type === Collision;
-        })
-        if (collision) {
-            let { mass, restitution, type, onCollide } = collision.props;
-            this.inst.physicsImpostor = new BABYLON.PhysicsImpostor(this.inst, type || BABYLON.PhysicsImpostor.BoxImpostor, { mass, restitution }, innerContext.scene);
-            innerContext.collisions.push(this.inst.physicsImpostor)
-            onCollide && this.next(() => {
-                this.inst.physicsImpostor.registerOnPhysicsCollide(innerContext.collisions, onCollide);
-            })
-            // console.log(this.inst, collision)
-        }
-
+        let { props, innerContext } = this;
+        this.inst.receiveShadows = this.props.receiveShadows;
+        this.inst.material = new BABYLON.StandardMaterial('material', innerContext.scene);
+        this.innerContext.meshs.push(this);
         super.create();
     }
 }
 
 export abstract class Light<P> extends Component<P> {
     static defaultProps = {
+
         position: [0, 0, 0]
     }
     readonly type = 'Light';
     inst: any;
-    props: Readonly<P>;
+    props: Readonly<P> & Readonly<ClassAttributes<P>>;
     constructor(props, innerContext, context) {
         super(props, innerContext, context)
     }
@@ -104,7 +110,7 @@ export abstract class Camera<P> extends Component<P> {
     }
     type = 'TargetCamera';
     inst: BABYLON.TargetCamera;
-    props: Readonly<P>;
+    props: Readonly<P> & Readonly<ClassAttributes<P>>;
     constructor(props, innerContext, context) {
         super(props, innerContext, context)
     }
@@ -113,15 +119,37 @@ export abstract class Camera<P> extends Component<P> {
         this.inst.setTarget(target);
     }
 }
+export abstract class Material<P> extends Component<P> {
+    static defaultProps = {
 
+    }
+    type = 'Material';
+    inst: BABYLON.Material;
+    props: Readonly<P> & Readonly<ClassAttributes<P>>;
+    constructor(props, innerContext, context) {
+        super(props, innerContext, context)
+    }
+    abstract create(): void;
+}
 
+export abstract class Texture<P> extends Component<P> {
+    static defaultProps = {
+
+    }
+    type = 'Texture';
+    inst: BABYLON.Texture;
+    props: Readonly<P> & Readonly<ClassAttributes<P>>;
+    constructor(props, innerContext, context) {
+        super(props, innerContext, context)
+    }
+    abstract create(): void;
+}
 
 
 
 export abstract class Enity<P extends ClassAttributes<P>=any> extends TransformComponent<P> {
     readonly type = 'Enity';
     inst: BABYLON.TransformNode;
-    children: Component[] = [];
     props: Readonly<P> & Readonly<ClassAttributes<P>>;
     constructor(props, innerContext, context) {
         super(props, innerContext, context)

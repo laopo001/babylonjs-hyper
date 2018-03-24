@@ -30,7 +30,7 @@ export function render(root: Node, canvas, option?: Option) {
     // Load the 3D engine
     var engine = new BABYLON.Engine(canvas as HTMLCanvasElement, true, { preserveDrawingBuffer: true, stencil: true });
     // CreateScene function that creates and return the scene
-    let innerContent: InternalContext = { engine, canvas, collisions: [] };
+    let innerContent: InternalContext = { engine, canvas, collisions: [], meshs: [] };
     var scene = create(root, innerContent);
     // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
     // var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene);

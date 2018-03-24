@@ -1,5 +1,5 @@
 
-import { Scene, Node, Component, Enity } from './index';
+import { Scene, Node, Component, Enity, Mesh } from './index';
 import { update_queue } from './render';
 import { ComponentClass } from './component';
 
@@ -10,7 +10,8 @@ export interface InternalContext {
     scene?: BABYLON.Scene;
     canvas?: HTMLElement;
     openPhysics?: boolean;
-    collisions?:BABYLON.PhysicsImpostor[]
+    collisions?: BABYLON.PhysicsImpostor[];
+    meshs: Mesh<any>[];
 }
 
 export function create(root: Node, innerContext: InternalContext) {
@@ -23,16 +24,17 @@ export function create(root: Node, innerContext: InternalContext) {
     let scene = new Scene(engine, props, innerContext)
     scene.create();
     innerContext.scene = scene.inst;
-    runChildren(root.children, innerContext, {});
+    runChildren(root.children, innerContext, {}, scene);
     return scene.inst;
 }
 
-export function run(node: Node, innerContext: InternalContext, context) {
+export function run(node: Node, innerContext: InternalContext, context, parent) {
     let { scene } = innerContext;
     if (node instanceof Node) {
         let Ctor = node.type;
         let props = Object.assign({}, (Ctor as ComponentClass).defaultProps, node.props)
         let c = new (Ctor as ComponentClass)(props, innerContext, context)
+        c.parent = parent;
         if (props.ref) {
             props.ref(c)
         }
@@ -42,17 +44,26 @@ export function run(node: Node, innerContext: InternalContext, context) {
 
         } else {
             c.create();
-            runChildren(node.children, innerContext, context);
+            runChildren(node.children, innerContext, context, c);
         }
+        // let res = c.create();
+        // if (Array.isArray(res)) {
+        //     runChildren(res, innerContext, context, c);
+        // } else if (res != null) {
+        //     runChildren([res], innerContext, context, c);
+        // }
+
         return c;
+    } else {
+        console.error('error')
     }
 }
 
-export function runChildren(nodes: Node[], innerContext: InternalContext, context, parent?: Enity) {
+export function runChildren(nodes: Node[], innerContext: InternalContext, context, parent: any) {
 
     for (let i = 0; i < nodes.length; i++) {
         let node = nodes[i];
-        let c = run(node, innerContext, context)
+        let c = run(node, innerContext, context, parent)
         if (parent) {
             parent.children.push(c);
         }
@@ -66,6 +77,7 @@ function renderEnity(enity: Enity, innerContext: InternalContext, context) {
     if (Array.isArray(temp)) {
         runChildren(temp, innerContext, context, enity);
     } else {
+        console.error('error')
         runChildren([temp], innerContext, context, enity);
     }
 }

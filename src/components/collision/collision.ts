@@ -1,5 +1,5 @@
 
-import { Component } from '../../index';
+import { Component, ClassAttributes } from '../../index';
 import * as BABYLON from "babylonjs";
 
 export interface CollisionProps {
@@ -15,12 +15,20 @@ export class Collision extends Component<CollisionProps> {
     }
     type = 'Collision';
     inst: BABYLON.PhysicsImpostor;
-    props: Readonly<CollisionProps>;
+    props: Readonly<CollisionProps> & Readonly<ClassAttributes<CollisionProps>>;
     constructor(props, innerContext, context) {
         super(props, innerContext, context)
 
     }
     create() {
         // this.props.registerOnPhysicsCollide
+        let { props, innerContext } = this;
+        let { mass, restitution, type, onCollide } = props;
+        this.parent.inst.physicsImpostor = new BABYLON.PhysicsImpostor(this.parent.inst, type || BABYLON.PhysicsImpostor.BoxImpostor, { mass, restitution }, innerContext.scene);
+        this.inst = this.parent.inst.physicsImpostor;
+        innerContext.collisions.push(this.inst)
+        onCollide && this.next(() => {
+            this.inst.registerOnPhysicsCollide(innerContext.collisions, onCollide);
+        })
     }
 }

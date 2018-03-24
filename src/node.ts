@@ -4,7 +4,6 @@ export class Node<P extends Attributes =any> {
     key: Key | null;
     constructor(public type: ComponentClass | string, public props: P, public children?: Node[]) {
         this.props = this.props == null ? {} as P : this.props;
-        this.key = this.props.key;
         this.props.children = children;
     }
 }
@@ -14,7 +13,6 @@ export type HGLNode = Node | Node[] | string | number | boolean | null | undefin
 export type Key = string | number;
 
 export interface Attributes {
-    key?: Key;
     children?: Node[];
     name?: string;
 }
@@ -26,6 +24,8 @@ export type Ref<T> = { bivarianceHack(instance: T | null): any }["bivarianceHack
 export interface ClassAttributes<T> extends Attributes {
     ref?: Ref<T>;
 }
+
+
 
 export type Validator<T> = { bivarianceHack(object: T, key: string, componentName: string, ...rest: any[]): Error | null }["bivarianceHack"];
 

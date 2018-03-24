@@ -16,7 +16,6 @@ export class Scene extends Component<SceneProps>  {
         super(props, innerContext)
     }
     create() {
-        // console.log(123);
         let { props, engine, innerContext } = this;
         this.inst = new BABYLON.Scene(engine);
         if (props.physics) {
