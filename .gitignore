@@ -4,3 +4,4 @@ lib/
 build/index.js
 build/index.js.map
 .vscode/
+deploy/
