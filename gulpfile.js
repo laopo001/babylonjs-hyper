@@ -15,11 +15,11 @@ var client = new OSS({
 
 
 gulp.task('replace', function (cb) {
-    gulp.src('./build/**')
+    let stream = gulp.src('./build/**')
         .pipe(replace('script src="', 'script src="http://dadigua.oss-cn-shenzhen.aliyuncs.com/hypergl/deploy/'))
         .pipe(replace('sourceMappingURL=', 'sourceMappingURL=http://dadigua.oss-cn-shenzhen.aliyuncs.com/hypergl/deploy/'))
         .pipe(gulp.dest('deploy'))
-    cb();
+    return stream;
 });
 
 gulp.task('upload', ['replace'], function (cb) {
