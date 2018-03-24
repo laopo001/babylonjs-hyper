@@ -3,7 +3,7 @@ import { ClassAttributes, Attributes } from './node';
 import { TransformProps, MeshProps } from './components/props';
 import { next_queue } from './render';
 import { InternalContext } from './run';
-import * as BABYLON from "babylonjs";
+import * as BABYLON from 'babylonjs';
 
 function inspectArr(nums: number[]) {
     if (nums[0] == null || nums[1] == null || nums[2] == null) {

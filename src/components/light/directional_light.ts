@@ -1,5 +1,5 @@
 import { Light } from '../../index';
-import * as BABYLON from "babylonjs";
+import * as BABYLON from 'babylonjs';
 
 export interface DirectionalLightProps {
     position: number[];

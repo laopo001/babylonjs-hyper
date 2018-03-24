@@ -10,7 +10,7 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "jsx": "react",
-    "jsxFactory":"PGL.h",
+    "jsxFactory": "PGL.h",
     "lib": [
       "es2015",
       "dom",
@@ -22,8 +22,7 @@
       "type"
     ],
     "outDir": "node_modules/hypergl",
-    "types": [
-    ],
+    "types": [],
     "allowSyntheticDefaultImports": true
   },
   "files": [

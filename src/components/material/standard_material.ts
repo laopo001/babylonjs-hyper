@@ -1,5 +1,5 @@
 import { Material, ClassAttributes } from '../../index';
-import * as BABYLON from "babylonjs";
+import * as BABYLON from 'babylonjs';
 
 export interface StandardMaterialProps {
     alpha?: number;

@@ -1,4 +1,5 @@
 var co = require('co');
+var fs = require('fs');
 var OSS = require('ali-oss')
 var path = require('path');
 var client = new OSS({
@@ -18,9 +19,20 @@ var client = new OSS({
 //   });
 console.log(__dirname)
 
-co(function* () {
-    var result = yield client.put('hypergl/deploy/index.js', path.resolve(__dirname, '../build/index.js'));
-    console.log(result);
-}).catch(function (err) {
-    console.log(err);
-});
+fs.readdir(path.resolve(__dirname, '../build'), 'utf8', function (err, files) {
+    files.forEach(file => {
+        co(function* () {
+            var result = yield client.put('hypergl/deploy/' + file, path.resolve(__dirname, '../build/index.js'));
+            console.log(result.url);
+        }).catch(function (err) {
+            console.log(err);
+        });
+    });
+})
+
+// co(function* () {
+//     var result = yield client.put('hypergl/deploy/index.js', path.resolve(__dirname, '../build/index.js'));
+//     console.log(result);
+// }).catch(function (err) {
+//     console.log(err);
+// });

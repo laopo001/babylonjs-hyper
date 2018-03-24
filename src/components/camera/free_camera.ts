@@ -1,5 +1,5 @@
 import { Camera } from '../../index';
-import * as BABYLON from "babylonjs";
+import * as BABYLON from 'babylonjs';
 
 export interface FreeCameraProps {
     position: number[];

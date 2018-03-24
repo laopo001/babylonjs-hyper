@@ -1,5 +1,5 @@
 
-import * as BABYLON from "babylonjs";
+import * as BABYLON from 'babylonjs';
 import { Scene, Mesh } from '../../index';
 
 export interface GroundProps {

@@ -1,5 +1,5 @@
 import { Texture, ClassAttributes, Mesh } from '../../index';
-import * as BABYLON from "babylonjs";
+import * as BABYLON from 'babylonjs';
 
 export interface ReflectionTextureProps {
     allRender?: boolean;

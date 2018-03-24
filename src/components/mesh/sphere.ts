@@ -1,5 +1,5 @@
-import * as BABYLON from "babylonjs";
-// import { Engine } from "babylonjs";
+import * as BABYLON from 'babylonjs';
+// import { Engine } from 'babylonjs';
 import { Scene, Component, Mesh } from '../../index';
 
 export interface SphereProps {
