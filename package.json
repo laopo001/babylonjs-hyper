@@ -8,15 +8,15 @@
     "start": "npm run build",
     "test": "jest",
     "demo": "webpack --display-error-details --progress --colors --watch",
-    "watch": "webpack --display-error-details --progress --colors --watch",
-    "build": "webpack --display-error-details --progress --colors",
+    "demo1": "webpack --env.demo=1 --display-error-details --progress --colors --watch",
+    "build": "webpack --env.demo=1 --display-error-details --progress --colors",
     "deploy": "gulp upload",
     "publish": "rm -rf lib&&tsc -d --outDir lib"
   },
   "author": "ldh",
   "license": "ISC",
   "dependencies": {
-    "babylonjs": "^3.2.0-alphaC"
+    "babylonjs": "^3.2.0-beta.1"
   },
   "devDependencies": {
     "ali-oss": "^4.13.2",

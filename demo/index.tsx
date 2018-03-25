@@ -43,6 +43,7 @@ class Root extends Enity<any>{
         ]
     }
 }
+
 render(<Scene physics>
     {/* <HemisphericLight position={[0, 10, -5]} /> */}
     {/* <FreeCamera position={[0, 6, -5]} target={[0, 0, 0]} /> */}

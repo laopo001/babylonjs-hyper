@@ -24,8 +24,9 @@ export class Collision extends Component<CollisionProps> {
         // this.props.registerOnPhysicsCollide
         let { props, innerContext } = this;
         let { mass, restitution, type, onCollide } = props;
-        this.parent.inst.physicsImpostor = new BABYLON.PhysicsImpostor(this.parent.inst, type || BABYLON.PhysicsImpostor.BoxImpostor, { mass, restitution }, innerContext.scene);
-        this.inst = this.parent.inst.physicsImpostor;
+        this.inst = new BABYLON.PhysicsImpostor(this.parent.inst, type || BABYLON.PhysicsImpostor.BoxImpostor, { mass, restitution }, innerContext.scene);
+
+        this.parent.inst.physicsImpostor = this.inst;
         innerContext.collisions.push(this.inst)
         onCollide && this.next(() => {
             this.inst.registerOnPhysicsCollide(innerContext.collisions, onCollide);

@@ -12,9 +12,10 @@ export interface InternalContext {
     openPhysics?: boolean;
     collisions?: BABYLON.PhysicsImpostor[];
     meshs: Mesh<any>[];
+    shadowGeneratorRenderList: BABYLON.AbstractMesh[];
 }
 
-export function create(root: Node, innerContext: InternalContext) {
+export function createScene(root: Node, innerContext: InternalContext) {
     let { engine } = innerContext;
     console.log('begin')
     if (root.type !== Scene) {
@@ -28,12 +29,19 @@ export function create(root: Node, innerContext: InternalContext) {
     return scene.inst;
 }
 
+export function create(node: Node[], innerContext: InternalContext, context, parent) {
+
+    runChildren(node, innerContext, context, parent);
+
+}
+
 export function run(node: Node, innerContext: InternalContext, context, parent) {
     let { scene } = innerContext;
     if (node instanceof Node) {
         let Ctor = node.type;
         let props = Object.assign({}, (Ctor as ComponentClass).defaultProps, node.props)
         let c = new (Ctor as ComponentClass)(props, innerContext, context)
+       
         c.parent = parent;
         if (props.ref) {
             props.ref(c)
@@ -44,6 +52,7 @@ export function run(node: Node, innerContext: InternalContext, context, parent) 
 
         } else {
             c.create();
+            update_queue.push(c as any)
             runChildren(node.children, innerContext, context, c);
         }
         // let res = c.create();

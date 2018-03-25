@@ -8,3 +8,5 @@ export * from './material/standard_material';
 export * from './texture/reflection_texture';
 export * from './light/directional_light';
 export * from './camera/arcrotate_camera';
+export * from './mesh/box';
+export * from './mesh/cylinder';

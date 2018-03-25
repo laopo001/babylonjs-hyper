@@ -2,7 +2,7 @@ import { HGLNode, Node, ValidationMap, Collision } from './index';
 import { ClassAttributes, Attributes } from './node';
 import { TransformProps, MeshProps } from './components/props';
 import { next_queue } from './render';
-import { InternalContext } from './run';
+import { InternalContext, create } from './run';
 import * as BABYLON from 'babylonjs';
 
 function inspectArr(nums: number[]) {
@@ -14,11 +14,13 @@ function inspectArr(nums: number[]) {
 export abstract class Component<P =any> {
     props: Readonly<{ children?: HGLNode }> & Readonly<P>;
     type = 'Component';
+    name: string;
     inst: any;
     parent: null | Component;
     children: Component[] = [];
     // parent: BABYLON.TransformNode;
     constructor(props, public innerContext?: InternalContext, public context?: any) {
+        this.name = props.name;
         this.props = props;
     }
 
@@ -36,7 +38,9 @@ export abstract class Component<P =any> {
         next_queue.push(cb);
     }
     // update() { }
-    abstract create?(): any;
+    create() {
+        this.inst['__component__'] = this;
+    }
 }
 
 
@@ -64,6 +68,7 @@ export abstract class TransformComponent<P=any> extends Component<P> {
         this.inst.position = this.util.Nums3ToVector3(props.position);
         this.inst.rotation = this.util.Nums3ToVector3(props.rotation);
         this.inst.scaling = this.util.Nums3ToVector3(props.scaling);
+        super.create();
     }
 }
 
@@ -80,18 +85,20 @@ export abstract class Mesh<P> extends TransformComponent<P> {
         super(props, innerContext, context)
     }
     create() {
-        this.inst['__component__'] = this;
+        
         let { props, innerContext } = this;
         this.inst.receiveShadows = this.props.receiveShadows;
         this.inst.material = new BABYLON.StandardMaterial('material', innerContext.scene);
         this.innerContext.meshs.push(this);
+        if (this.props.cast) {
+            this.innerContext.shadowGeneratorRenderList.push(this.inst)
+        }
         super.create();
     }
 }
 
 export abstract class Light<P> extends Component<P> {
     static defaultProps = {
-
         position: [0, 0, 0]
     }
     readonly type = 'Light';
@@ -113,7 +120,7 @@ export abstract class Camera<P> extends Component<P> {
     constructor(props, innerContext, context) {
         super(props, innerContext, context)
     }
-    abstract create(): void;
+    create() { super.create(); }
     setTarget(target: BABYLON.Vector3): void {
         this.inst.setTarget(target);
     }
@@ -128,7 +135,7 @@ export abstract class Material<P> extends Component<P> {
     constructor(props, innerContext, context) {
         super(props, innerContext, context)
     }
-    abstract create(): void;
+    create() { super.create(); }
 }
 
 export abstract class Texture<P> extends Component<P> {
@@ -141,7 +148,7 @@ export abstract class Texture<P> extends Component<P> {
     constructor(props, innerContext, context) {
         super(props, innerContext, context)
     }
-    abstract create(): void;
+    create() { super.create(); }
 }
 
 
@@ -158,11 +165,21 @@ export abstract class Enity<P extends ClassAttributes<P>=any> extends TransformC
                 this.children[i].inst.parent = this.inst;
             }
         });
+        this.next(this.init.bind(this))
     }
+    init() {
 
+    }
+    append(...node: Node[]) {
+        create(node, this.innerContext, this.context, this)
+        for (let i = 0; i < this.children.length; i++) {
+            this.children[i].inst.parent = this.inst;
+        }
+    }
     update() { }
     // abstract create(): Node<any>[] | Node<any>;
     create() {
+        super.create();
         return this.props.children;
     }
 }

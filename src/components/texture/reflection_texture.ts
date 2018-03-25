@@ -19,6 +19,11 @@ export class ReflectionTexture extends Texture<ReflectionTextureProps> {
     setRenderList(renderList) {
         this.inst.renderList = renderList.map((x) => { return x.inst })
     }
+    refresh(){
+        this.next(() => {
+            this.inst.renderList = this.innerContext.meshs.filter(x => x.inst != this.parent.parent.inst).map(x => x.inst);
+        })
+    }
     create() {
         let { props, innerContext } = this;
         let glass = this.parent.parent.inst

@@ -479,9 +479,9 @@ babylon@^6.18.0:
   version "6.18.0"
   resolved "http://registry.npm.taobao.org/babylon/download/babylon-6.18.0.tgz#af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
 
-babylonjs@^3.2.0-alphaC:
+babylonjs@^3.2.0-beta.1:
   version "3.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/babylonjs/download/babylonjs-3.2.0-beta.1.tgz#2b91e78722669f8c253f02271f478d24fcce9f4c"
+  resolved "http://npm.dadigua.win/babylonjs/-/babylonjs-3.2.0-beta.1.tgz#2b91e78722669f8c253f02271f478d24fcce9f4c"
   dependencies:
     cannon "0.6.2"
 
@@ -798,7 +798,7 @@ camelcase@^4.1.0:
 
 cannon@0.6.2:
   version "0.6.2"
-  resolved "http://registry.npm.taobao.org/cannon/download/cannon-0.6.2.tgz#1e7bc72dd5841982f3c104c2bc578bfa4fb1c572"
+  resolved "http://npm.dadigua.win/cannon/-/cannon-0.6.2.tgz#1e7bc72dd5841982f3c104c2bc578bfa4fb1c572"
 
 caseless@~0.12.0:
   version "0.12.0"
