@@ -1,3 +1,6 @@
+/**
+ * @author dadigua
+ */
 import { Camera } from '../../index';
 import * as BABYLON from 'babylonjs';
 
@@ -13,7 +16,7 @@ export class ArcRotateCamera extends Camera<ArcRotateCameraProps> {
     }, Camera.defaultProps);
     inst: BABYLON.ArcRotateCamera;
     constructor(props, innerContext, context) {
-        super(props, innerContext, context)
+        super(props, innerContext, context);
     }
     create() {
         let { props, innerContext } = this;

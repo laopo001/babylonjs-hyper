@@ -1,4 +1,6 @@
-
+/**
+ * @author dadigua
+ */
 import { Scene, Node, Component, Enity, Mesh } from './index';
 import { update_queue } from './render';
 import { ComponentClass } from './component';
@@ -10,6 +12,7 @@ export interface InternalContext {
     scene?: BABYLON.Scene;
     canvas?: HTMLElement;
     openPhysics?: boolean;
+    debugger?: boolean;
     collisions?: BABYLON.PhysicsImpostor[];
     meshs: Mesh<any>[];
     shadowGeneratorRenderList: BABYLON.AbstractMesh[];
@@ -17,12 +20,12 @@ export interface InternalContext {
 
 export function createScene(root: Node, innerContext: InternalContext) {
     let { engine } = innerContext;
-    console.log('begin')
+    console.log('begin');
     if (root.type !== Scene) {
         console.log('必须包括在Scene中'); return;
     }
-    let props = Object.assign({}, Scene.defaultProps, root.props)
-    let scene = new Scene(engine, props, innerContext)
+    let props = Object.assign({}, Scene.defaultProps, root.props);
+    let scene = new Scene(engine, props, innerContext);
     scene.create();
     innerContext.scene = scene.inst;
     runChildren(root.children, innerContext, {}, scene);
@@ -39,20 +42,20 @@ export function run(node: Node, innerContext: InternalContext, context, parent) 
     let { scene } = innerContext;
     if (node instanceof Node) {
         let Ctor = node.type;
-        let props = Object.assign({}, (Ctor as ComponentClass).defaultProps, node.props)
-        let c = new (Ctor as ComponentClass)(props, innerContext, context)
-       
+        let props = Object.assign({}, (Ctor as ComponentClass).defaultProps, node.props);
+        let c = new (Ctor as ComponentClass)(props, innerContext, context);
+
         c.parent = parent;
         if (props.ref) {
-            props.ref(c)
+            props.ref(c);
         }
 
         if (c instanceof Enity) {
-            renderEnity(c, innerContext, context)
+            renderEnity(c, innerContext, context);
 
         } else {
             c.create();
-            update_queue.push(c as any)
+            update_queue.push(c as any);
             runChildren(node.children, innerContext, context, c);
         }
         // let res = c.create();
@@ -64,7 +67,7 @@ export function run(node: Node, innerContext: InternalContext, context, parent) 
 
         return c;
     } else {
-        console.error('error')
+        console.error('error');
     }
 }
 
@@ -72,7 +75,7 @@ export function runChildren(nodes: Node[], innerContext: InternalContext, contex
 
     for (let i = 0; i < nodes.length; i++) {
         let node = nodes[i];
-        let c = run(node, innerContext, context, parent)
+        let c = run(node, innerContext, context, parent);
         if (parent) {
             parent.children.push(c);
         }
@@ -81,12 +84,12 @@ export function runChildren(nodes: Node[], innerContext: InternalContext, contex
 }
 
 function renderEnity(enity: Enity, innerContext: InternalContext, context) {
-    update_queue.push(enity)
-    let temp = enity.create()
+    update_queue.push(enity);
+    let temp = enity.create();
     if (Array.isArray(temp)) {
         runChildren(temp, innerContext, context, enity);
     } else {
-        console.error('error')
+        console.error('error');
         runChildren([temp], innerContext, context, enity);
     }
 }

@@ -1,11 +1,14 @@
+/**
+ * @author dadigua
+ */
 export interface TransformProps {
     position?: number[];
     rotation?: number[];
     scaling?: number[];
 }
 export interface MeshProps {
-    receiveShadows?:boolean;
-    cast?:boolean;
+    receiveShadows?: boolean;
+    cast?: boolean;
 }
 
 

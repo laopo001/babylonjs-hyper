@@ -1,6 +1,9 @@
+/**
+ * @author dadigua
+ */
 import { Component, ComponentClass } from './index';
 
-export class Node<P extends Attributes =any> {
+export class Node<P extends Attributes = any> {
     key: Key | null;
     constructor(public type: ComponentClass | string, public props: P, public children?: Node[]) {
         this.props = this.props == null ? {} as P : this.props;
@@ -19,7 +22,7 @@ export interface Attributes {
 
 // export interface IntrinsicAttributes extends Attributes { }
 
-export type Ref<T> = { bivarianceHack(instance: T | null): any }["bivarianceHack"];
+export type Ref<T> = { bivarianceHack(instance: T | null): any }['bivarianceHack'];
 
 export interface ClassAttributes<T> extends Attributes {
     ref?: Ref<T>;
@@ -27,9 +30,9 @@ export interface ClassAttributes<T> extends Attributes {
 
 
 
-export type Validator<T> = { bivarianceHack(object: T, key: string, componentName: string, ...rest: any[]): Error | null }["bivarianceHack"];
+export type Validator<T> = { bivarianceHack(object: T, key: string, componentName: string, ...rest: any[]): Error | null }['bivarianceHack'];
 
-export type ValidationMap<T> = {[K in keyof T]?: Validator<T> };
+export type ValidationMap<T> = { [K in keyof T]?: Validator<T> };
 
 /* interface Requireable<T> extends Validator<T> {
     isRequired: Validator<T>;
@@ -68,7 +71,7 @@ declare global {
         // interface ElementClass extends Component<any> {
         //     render(): Node;
         // }
-        interface ElementAttributesProperty { props: {} }
+        interface ElementAttributesProperty { props: {}; }
         // interface ElementChildrenAttribute { children: {}; }
         // interface IntrinsicAttributes extends Attributes { }
         interface IntrinsicClassAttributes<T> extends ClassAttributes<T> { }

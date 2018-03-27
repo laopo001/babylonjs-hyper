@@ -6,14 +6,14 @@ export interface GroundProps {
     width: number;
     height: number;
     subdivisions: number;
-    updatable?: boolean
+    updatable?: boolean;
 }
 
 export class Ground extends Mesh<GroundProps> {
     static defaultProps = Mesh.defaultProps;
     inst: BABYLON.Mesh;
     constructor(props, innerContext, context) {
-        super(props, innerContext, context)
+        super(props, innerContext, context);
     }
     create() {
         let { props, innerContext } = this;

@@ -1,3 +1,6 @@
+/**
+ * @author dadigua
+ */
 import { Camera } from '../../index';
 import * as BABYLON from 'babylonjs';
 
@@ -11,7 +14,7 @@ export class FreeCamera extends Camera<FreeCameraProps> {
     static defaultProps = Camera.defaultProps;
     inst: BABYLON.FreeCamera;
     constructor(props, innerContext, context) {
-        super(props, innerContext, context)
+        super(props, innerContext, context);
     }
     create() {
         let { props, innerContext } = this;

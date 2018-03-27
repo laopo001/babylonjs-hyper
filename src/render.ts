@@ -1,45 +1,50 @@
+/**
+ * @author dadigua
+ */
 import * as BABYLON from 'babylonjs';
 
 import { createScene, run, Node, Enity, InternalContext } from './index';
 
 
-export const update_queue: Enity[] = []
-export const next_queue: Function[] = []
+export const update_queue: Enity[] = [];
+export const next_queue: Function[] = [];
 
 
 
 function call_update_queue() {
     for (let i = 0; i < update_queue.length; i++) {
         let c = update_queue[i];
-        c.update && c.update()
+        c.update && c.update();
     }
 }
 function call_next_queue() {
     let cb;
     while (cb = next_queue.pop()) {
-        cb()
+        cb();
     }
 }
 
 export interface Option {
-    debugger: boolean
+    debugger: boolean;
 }
 
 export function render(root: Node, canvas, option?: Option) {
-    option = Object.assign({ debugger: false }, option || {})
+    option = Object.assign({ debugger: false }, option || {});
     if (canvas == null) { console.error('canvas not found'); return; }
     // Load the 3D engine
-    var engine = new BABYLON.Engine(canvas as HTMLCanvasElement, true, { preserveDrawingBuffer: true, stencil: true });
+    const engine = new BABYLON.Engine(canvas as HTMLCanvasElement, true, { preserveDrawingBuffer: true, stencil: true });
     // CreateScene function that creates and return the scene
-    let innerContent: InternalContext = { engine, canvas, collisions: [], meshs: [], shadowGeneratorRenderList: [] };
-    var scene = createScene(root, innerContent);
-
+    let innerContent: InternalContext = { engine, canvas, collisions: [], meshs: [], shadowGeneratorRenderList: [], debugger: option.debugger };
+    const scene = createScene(root, innerContent);
+    // Physics engine
+    // var physicsViewer = new BABYLON.Debug.PhysicsViewer();
+    // var physicsHelper = new BABYLON.PhysicsHelper(scene);
     if (option.debugger) {
         scene.debugLayer.show();
     }
     scene.preventDefaultOnPointerDown = false;
     scene.beforeRender = function () {
-    }
+    };
     // run the render loop
     engine.runRenderLoop(function () {
         call_next_queue();

@@ -1,3 +1,6 @@
+/**
+ * @author dadigua
+ */
 import * as BABYLON from 'babylonjs';
 import { Component } from '../../index';
 
@@ -11,9 +14,9 @@ export class Scene extends Component<SceneProps>  {
     static defaultProps = {
         gravity: [0, -9.82, 0],
         physics: false
-    }
+    };
     constructor(private engine: BABYLON.Engine, props, innerContext) {
-        super(props, innerContext)
+        super(props, innerContext);
     }
     create() {
         let { props, engine, innerContext } = this;

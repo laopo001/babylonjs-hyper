@@ -29,13 +29,14 @@ class Root extends Enity<any>{
     create() {
         return [
             <Sphere cast position={[1, 9, 3]} scaling={[1, 1, 1]} segments={16} diameter={2}>
-                <Collision type={BABYLON.PhysicsImpostor.SphereImpostor} mass={1} restitution={0.5} onCollide={(self: any, collided) => {
+                <Collision type={BABYLON.PhysicsImpostor.SphereImpostor} mass={1} restitution={0.3} onCollide={(self: any, collided) => {
                     // 监听碰撞
                     self.object.material.diffuseColor = new BABYLON.Color3(Math.random(), Math.random(), Math.random());
+                    
                 }} />
             </Sphere>,
             <Ground receiveShadows width={10} height={10} subdivisions={2} ref={(x) => { this.groud = x; }}>
-                <Collision mass={0} restitution={0.9} />
+                <Collision mass={0} restitution={0.3} />
                 <StandardMaterial >
                     <ReflectionTexture level={1} />
                 </StandardMaterial>
