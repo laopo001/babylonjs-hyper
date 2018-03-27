@@ -99,4 +99,4 @@ render(<Scene physics>
     <DirectionalLight position={[20, 40, 20]} target={[-1, -2, -1]} shadow />
     <ArcRotateCamera target={[0, 0, 0]} radius={30} />
     <Root />
-</Scene>, canvas, { debugger: true });
+</Scene>, canvas, { debugger: false });

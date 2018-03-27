@@ -25,7 +25,7 @@ export class Collision extends Component<CollisionProps> {
         let { props, innerContext } = this;
         let { mass, restitution, type, onCollide } = props;
         this.inst = new BABYLON.PhysicsImpostor(this.parent.inst, type || BABYLON.PhysicsImpostor.BoxImpostor, { mass, restitution }, innerContext.scene);
-
+        // this.inst.forceUpdate()
         this.parent.inst.physicsImpostor = this.inst;
         innerContext.collisions.push(this.inst)
         onCollide && this.next(() => {
