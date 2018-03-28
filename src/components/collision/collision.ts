@@ -24,10 +24,11 @@ export class Collision extends Component<CollisionProps> {
         super(props, innerContext, context);
     }
     dispose() {
-        this.inst.dispose();
+        this._clone = this.inst;
+        this.parent.inst.physicsImpostor = null;
     }
     rebuild() {
-        this.create();
+        this.parent.inst.physicsImpostor = this._clone;
     }
     create() {
         // this.props.registerOnPhysicsCollide

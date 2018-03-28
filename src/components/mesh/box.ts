@@ -1,4 +1,6 @@
-
+/**
+ * @author dadigua
+ */
 import * as BABYLON from 'babylonjs';
 import { Scene, Mesh } from '../../index';
 
@@ -6,14 +8,14 @@ export interface BoxProps {
     width?: number;
     height?: number;
     depth?: number;
-    updatable?: boolean
+    updatable?: boolean;
 }
 
 export class Box extends Mesh<BoxProps> {
     static defaultProps = Mesh.defaultProps;
     inst: BABYLON.Mesh;
     constructor(props, innerContext, context) {
-        super(props, innerContext, context)
+        super(props, innerContext, context);
     }
     create() {
         let { props, innerContext } = this;

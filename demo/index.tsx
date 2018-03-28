@@ -3,22 +3,22 @@
  */
 
 import PGL, { Sphere, render, Scene, ArcRotateCamera, DirectionalLight, Ground, h, Enity, HemisphericLight, FreeCamera, util, Collision, StandardMaterial, ReflectionTexture } from '../src/index';
-import * as BABYLON from 'babylonjs'
+import * as BABYLON from 'babylonjs';
 
 
-var canvas = document.getElementById('root');
+let canvas = document.getElementById('root');
 
 canvas.style.width = window.innerWidth + 'px';
 canvas.style.height = window.innerHeight - 5 + 'px';
 
-class Root extends Enity<any>{
+class Root extends Enity<any> {
     constructor(props, scene, context) {
-        super(props, scene, context)
+        super(props, scene, context);
         this.next(() => {
             // this.groud.inst.position.x = 2;
             window['node'] = this;
-            console.log(this)
-        })
+            console.log(this);
+        });
     }
     xxx;
     update() {
@@ -32,7 +32,7 @@ class Root extends Enity<any>{
                 <Collision type={BABYLON.PhysicsImpostor.SphereImpostor} mass={1} restitution={0.3} onCollide={(self: any, collided) => {
                     // 监听碰撞
                     self.object.material.diffuseColor = new BABYLON.Color3(Math.random(), Math.random(), Math.random());
-                    
+
                 }} />
             </Sphere>,
             <Ground receiveShadows width={10} height={10} subdivisions={2} ref={(x) => { this.groud = x; }}>
@@ -41,7 +41,7 @@ class Root extends Enity<any>{
                     <ReflectionTexture level={1} />
                 </StandardMaterial>
             </Ground>
-        ]
+        ];
     }
 }
 

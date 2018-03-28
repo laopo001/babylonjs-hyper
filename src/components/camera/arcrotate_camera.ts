@@ -18,6 +18,9 @@ export class ArcRotateCamera extends Camera<ArcRotateCameraProps> {
     constructor(props, innerContext, context) {
         super(props, innerContext, context);
     }
+    setTarget(nums) {
+        this.inst.setTarget(this.util.Nums3ToVector3(nums));
+    }
     create() {
         let { props, innerContext } = this;
         let camera = new BABYLON.ArcRotateCamera(props.name, 0, 0.8, props.radius, this.util.Nums3ToVector3(props.target), innerContext.scene);

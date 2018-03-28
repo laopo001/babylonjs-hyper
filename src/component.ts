@@ -83,6 +83,9 @@ export abstract class Mesh<P> extends TransformComponent<P> {
     }, TransformComponent.defaultProps);
     readonly type = 'Mesh';
     inst: BABYLON.Mesh;
+    get collision(): Collision {
+        return this.children.find(x => x instanceof Collision) as Collision;
+    }
     props: Readonly<P> & Readonly<TransformProps> & Readonly<ClassAttributes<P>> & Readonly<MeshProps>;
     constructor(props, innerContext, context) {
         super(props, innerContext, context);
@@ -169,6 +172,9 @@ export abstract class Enity<P extends ClassAttributes<P>= any> extends Transform
             }
         });
         this.next(this.init.bind(this));
+        this.inst.position = this.util.Nums3ToVector3(props.position);
+        this.inst.rotation = this.util.Nums3ToVector3(props.rotation);
+        this.inst.scaling = this.util.Nums3ToVector3(props.scaling);
     }
     init() {
 

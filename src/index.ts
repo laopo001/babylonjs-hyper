@@ -5,7 +5,7 @@
 import * as BABYLON from 'babylonjs';
 // import { Scene, Engine } from 'babylonjs';
 import { h } from './h';
-import { Mesh } from './component'
+import { Mesh } from './component';
 export * from './component';
 export * from './components';
 
