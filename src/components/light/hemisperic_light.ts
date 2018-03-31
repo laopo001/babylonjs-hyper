@@ -1,3 +1,6 @@
+/**
+ * @author dadigua
+ */
 import { Light } from '../../index';
 import * as BABYLON from 'babylonjs';
 
@@ -10,7 +13,7 @@ export class HemisphericLight extends Light<HemisphericLightProps> {
     static defaultProps = Light.defaultProps;
     inst: BABYLON.HemisphericLight;
     constructor(props, innerContext, context) {
-        super(props, innerContext, context)
+        super(props, innerContext, context);
     }
     create() {
         let { props, innerContext } = this;

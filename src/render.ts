@@ -43,12 +43,14 @@ export function render(root: Node, canvas, option?: Option) {
         scene.debugLayer.show();
     }
     scene.preventDefaultOnPointerDown = false;
-    scene.beforeRender = function () {
-    };
-    // run the render loop
-    engine.runRenderLoop(function () {
+    scene.registerBeforeRender(function () {
         call_next_queue();
         call_update_queue();
+    });
+    // run the render loop
+    engine.runRenderLoop(function () {
+        // call_next_queue();
+        // call_update_queue();
         scene.render();
     });
     // the canvas/window resize event handler

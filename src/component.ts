@@ -188,7 +188,7 @@ export abstract class Enity<P extends ClassAttributes<P>= any> extends Transform
     update() { }
     // abstract create(): Node<any>[] | Node<any>;
     create() {
-        super.create();
+        // super.create();
         return this.props.children;
     }
 }

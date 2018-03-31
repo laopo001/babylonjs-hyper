@@ -479,9 +479,9 @@ babylon@^6.18.0:
   version "6.18.0"
   resolved "http://registry.npm.taobao.org/babylon/download/babylon-6.18.0.tgz#af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
 
-babylonjs@^3.2.0-beta.1:
-  version "3.2.0-beta.1"
-  resolved "http://npm.dadigua.win/babylonjs/-/babylonjs-3.2.0-beta.1.tgz#2b91e78722669f8c253f02271f478d24fcce9f4c"
+babylonjs@^3.1.1:
+  version "3.1.1"
+  resolved "http://npm.dadigua.win/babylonjs/-/babylonjs-3.1.1.tgz#6536c180e4b4006d61c77fcba1a2687dbb296331"
   dependencies:
     cannon "0.6.2"
 

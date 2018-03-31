@@ -1,3 +1,6 @@
+/**
+ * @author dadigua
+ */
 import { Material, ClassAttributes } from '../../index';
 import * as BABYLON from 'babylonjs';
 
@@ -19,14 +22,14 @@ export class StandardMaterial extends Material<StandardMaterialProps> {
     };
     inst: BABYLON.StandardMaterial;
     constructor(props, innerContext, context) {
-        super(props, innerContext, context)
+        super(props, innerContext, context);
     }
     create() {
         let { props, innerContext } = this;
         this.inst = new BABYLON.StandardMaterial(props.name || 'StandardMaterial', innerContext.scene);
         props.alpha != null && (this.inst.alpha = props.alpha);
         this.inst.backFaceCulling = props.backFaceCulling;
-        this.inst.diffuseColor = this.util.Nums3ToColor3(props.diffuseColor)
+        this.inst.diffuseColor = this.util.Nums3ToColor3(props.diffuseColor);
         if (props.pointsCloud) {
             this.inst.pointsCloud = props.pointsCloud;
             this.inst.pointSize = props.pointSize;

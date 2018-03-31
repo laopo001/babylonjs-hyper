@@ -14,7 +14,7 @@ export interface CollisionProps {
 
 export class Collision extends Component<CollisionProps> {
     static defaultProps = {
-        friction: 0
+        friction: 0.2
     };
     type = 'Collision';
     inst: BABYLON.PhysicsImpostor;
@@ -23,25 +23,17 @@ export class Collision extends Component<CollisionProps> {
     constructor(props, innerContext, context) {
         super(props, innerContext, context);
     }
-    dispose() {
-        this._clone = this.inst;
-        this.parent.inst.physicsImpostor = null;
-    }
-    rebuild() {
-        this.parent.inst.physicsImpostor = this._clone;
-    }
     create() {
         // this.props.registerOnPhysicsCollide
         let { props, innerContext } = this;
         let { mass, restitution, type, onCollide, friction } = props;
-        let physiceEngine = innerContext.scene.getPhysicsEngine();
-        this.inst = new BABYLON.PhysicsImpostor(this.parent.inst, type || BABYLON.PhysicsImpostor.BoxImpostor, { mass, restitution, friction }, innerContext.scene);
+        type = type != null ? type : BABYLON.PhysicsImpostor.BoxImpostor;
+        this.inst = new BABYLON.PhysicsImpostor(this.parent.inst, type , { mass, restitution, friction }, innerContext.scene);
         // this.inst.forceUpdate()
         this.parent.inst.physicsImpostor = this.inst;
-
         innerContext.collisions.push(this.inst);
         onCollide && this.next(() => {
-            this.inst.registerOnPhysicsCollide(innerContext.collisions, onCollide);
+            this.inst.registerOnPhysicsCollide(innerContext.collisions.filter(x => x !== this.inst), onCollide);
         });
         // this.inst.onCollide = function (e) {
         //     console.log(e);

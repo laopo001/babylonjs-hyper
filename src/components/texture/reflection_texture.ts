@@ -39,7 +39,7 @@ export class ReflectionTexture extends Texture<ReflectionTextureProps> {
         glassNormal = BABYLON.Vector3.TransformNormal(glassNormal, glass_worldMatrix);
         let reflector = BABYLON.Plane.FromPositionAndNormal(glass.position, glassNormal.scale(-1));
 
-        let reflectionTexture = new BABYLON.MirrorTexture(props.name || 'Mirror', 1024, innerContext.scene, true);
+        let reflectionTexture = new BABYLON.MirrorTexture(props.name, 1024, innerContext.scene, true);
         this.inst = reflectionTexture;
         reflectionTexture.mirrorPlane = reflector;
         reflectionTexture.level = props.level;
