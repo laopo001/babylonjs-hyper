@@ -1,7 +1,7 @@
 /**
  * @author dadigua
  */
-import { Component, ComponentClass } from './index';
+import { Component, ComponentClass } from './component';
 
 export class Node<P extends Attributes = any> {
     key: Key | null;
@@ -68,9 +68,9 @@ declare global {
     namespace JSX {
 
         // interface Element extends Node { }
-        interface ElementClass extends Component<any> {
-            render(): Node;
-        }
+        // interface ElementClass extends Component<any> {
+        //     render(): Node;
+        // }
         interface ElementAttributesProperty { props: {}; }
         // interface ElementChildrenAttribute { children: {}; }
         // interface IntrinsicAttributes extends Attributes { }

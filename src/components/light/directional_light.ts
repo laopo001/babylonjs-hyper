@@ -1,7 +1,7 @@
 /**
  * @author dadigua
  */
-import { Light } from '../../index';
+import { Light } from '../../component';
 import * as BABYLON from 'babylonjs';
 
 export interface DirectionalLightProps {

@@ -3,8 +3,9 @@
  */
 import * as BABYLON from 'babylonjs';
 
-import { createScene, run, Node, Enity, InternalContext } from './index';
-
+import { Enity, } from './component';
+import { Node } from './node';
+import { createScene, run, InternalContext } from './run';
 
 export const update_queue: Enity[] = [];
 export const next_queue: Function[] = [];

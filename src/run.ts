@@ -1,11 +1,10 @@
 /**
  * @author dadigua
  */
-import { Scene, Node, Component, Enity, Mesh } from './index';
+import { Component, Enity, ComponentClass } from './component';
+import { Node } from './node';
+import { Scene, Mesh } from './components/';
 import { update_queue } from './render';
-import { ComponentClass } from './component';
-
-
 
 export interface InternalContext {
     engine?: BABYLON.Engine;

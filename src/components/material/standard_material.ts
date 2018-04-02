@@ -1,7 +1,7 @@
 /**
  * @author dadigua
  */
-import { Material, ClassAttributes } from '../../index';
+import { Material } from '../../component';
 import * as BABYLON from 'babylonjs';
 
 export interface StandardMaterialProps {

@@ -1,7 +1,8 @@
 /**
  * @author dadigua
  */
-import { Component, ClassAttributes } from '../../index';
+import { Component } from '../../component';
+import { ClassAttributes } from '../../node';
 import * as BABYLON from 'babylonjs';
 
 export interface CollisionProps {
@@ -28,8 +29,7 @@ export class Collision extends Component<CollisionProps> {
         let { props, innerContext } = this;
         let { mass, restitution, type, onCollide, friction } = props;
         type = type != null ? type : BABYLON.PhysicsImpostor.BoxImpostor;
-        this.inst = new BABYLON.PhysicsImpostor(this.parent.inst, type , { mass, restitution, friction }, innerContext.scene);
-        // this.inst.forceUpdate()
+        this.inst = new BABYLON.PhysicsImpostor(this.parent.inst, type, { mass, restitution, friction }, innerContext.scene);
         this.parent.inst.physicsImpostor = this.inst;
         innerContext.collisions.push(this.inst);
         onCollide && this.next(() => {

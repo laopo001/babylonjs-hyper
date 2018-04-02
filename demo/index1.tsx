@@ -4,9 +4,10 @@
 
 import PGL, {
     Sphere, render, Scene, Box, ArcRotateCamera, DirectionalLight, Ground,
-    Enity, HemisphericLight, FreeCamera, util, Collision, StandardMaterial,
-    ReflectionTexture, Cylinder, Mesh
+    Enity, HemisphericLight, FreeCamera, Collision, StandardMaterial, Mesh,
+    ReflectionTexture, Cylinder
 } from '../src/index';
+import { randomEnum, randomRange } from '../src/util';
 import * as BABYLON from 'babylonjs';
 
 
@@ -38,18 +39,18 @@ class Root extends Enity<any> {
     }
     add() {
 
-        let r = util.randomEnum<number>(-1, 1);
+        let r = randomEnum<number>(-1, 1);
         if (r > 0) {
             this.direction = 'right';
         } else {
             this.direction = 'left';
         }
         let { x, y, z } = this.currBox.inst.position;
-        let len = util.randomRange(2, 8);
+        let len = randomRange(2, 8);
         x = x - len;
         z = z + r * len;
         this.append(
-            <Box cast position={[x, y, z]} rotation={[0, Math.PI / 4, 0]} width={util.randomRange(2, 3.5)} height={1} depth={util.randomRange(2, 3.5)}>
+            <Box cast position={[x, y, z]} rotation={[0, Math.PI / 4, 0]} width={randomRange(2, 3.5)} height={1} depth={randomRange(2, 3.5)}>
                 <Collision mass={10} restitution={0.3} onCollide={this.boxCollideHander.bind(this)} />
             </Box>
         );

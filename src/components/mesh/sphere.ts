@@ -2,8 +2,8 @@
  * @author dadigua
  */
 import * as BABYLON from 'babylonjs';
-import { Scene, Component, Mesh } from '../../index';
-
+import { Component } from '../../component';
+import { Mesh } from './index';
 export interface SphereProps {
     segments: number;
     diameter: number;

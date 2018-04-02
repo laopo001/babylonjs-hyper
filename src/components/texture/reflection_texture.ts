@@ -1,7 +1,7 @@
 /**
  * @author dadigua
  */
-import { Texture, ClassAttributes, Mesh } from '../../index';
+import { Texture } from '../../component';
 import * as BABYLON from 'babylonjs';
 
 export interface ReflectionTextureProps {

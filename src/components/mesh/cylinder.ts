@@ -2,7 +2,7 @@
  * @author dadigua
  */
 import * as BABYLON from 'babylonjs';
-import { Scene, Mesh } from '../../index';
+import {  Mesh } from './index';
 
 export interface CylinderProps {
     height?: number;

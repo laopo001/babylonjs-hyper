@@ -2,7 +2,7 @@
  * @author dadigua
  */
 import * as BABYLON from 'babylonjs';
-import { Component } from '../../index';
+import { Component } from '../../component';
 
 export interface SceneProps {
     physics?: boolean;

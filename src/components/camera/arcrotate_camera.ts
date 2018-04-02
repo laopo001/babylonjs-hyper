@@ -1,7 +1,7 @@
 /**
  * @author dadigua
  */
-import { Camera } from '../../index';
+import { Camera } from '../../component';
 import * as BABYLON from 'babylonjs';
 
 export interface ArcRotateCameraProps {

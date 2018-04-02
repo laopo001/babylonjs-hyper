@@ -1,12 +1,13 @@
 /**
  * @author dadigua
  */
-import { HGLNode, Node, ValidationMap, Collision } from './index';
-import { ClassAttributes, Attributes } from './node';
+import * as BABYLON from 'babylonjs';
+
+import { HGLNode, Node, ClassAttributes, Attributes } from './node';
 import { TransformProps, MeshProps } from './components/props';
 import { next_queue } from './render';
 import { InternalContext, create } from './run';
-import * as BABYLON from 'babylonjs';
+// import { Collision } from './index';
 
 function inspectArr(nums: number[]) {
     if (nums[0] == null || nums[1] == null || nums[2] == null) {
@@ -44,7 +45,7 @@ export abstract class Component<P= any> {
     create() {
         this.inst['__component__'] = this;
     }
-    render(): Node<any> { return; }
+
 }
 
 
@@ -76,33 +77,7 @@ export abstract class TransformComponent<P= any> extends Component<P> {
     }
 }
 
-export abstract class Mesh<P> extends TransformComponent<P> {
-    static defaultProps = Object.assign({
-        updatable: false,
-        receiveShadows: false,
-        cast: false
-    }, TransformComponent.defaultProps);
-    readonly type = 'Mesh';
-    inst: BABYLON.Mesh;
-    get collision(): Collision {
-        return this.children.find(x => x instanceof Collision) as Collision;
-    }
-    props: Readonly<P> & Readonly<TransformProps> & Readonly<ClassAttributes<P>> & Readonly<MeshProps>;
-    constructor(props, innerContext, context) {
-        super(props, innerContext, context);
-    }
-    create() {
 
-        let { props, innerContext } = this;
-        this.inst.receiveShadows = this.props.receiveShadows;
-        this.inst.material = new BABYLON.StandardMaterial('material', innerContext.scene);
-        this.innerContext.meshs.push(this);
-        if (this.props.cast) {
-            this.innerContext.shadowGeneratorRenderList.push(this.inst);
-        }
-        super.create();
-    }
-}
 
 export abstract class Light<P> extends Component<P> {
     static defaultProps = {

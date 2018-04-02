@@ -9,7 +9,7 @@
     "test": "jest",
     "demo": "webpack --display-error-details --progress --colors --watch",
     "demo1": "webpack --env.demo=1 --display-error-details --progress --colors --watch",
-    "build": "webpack --env.demo=1 --display-error-details --progress --colors",
+    "build": "webpack --env.demo=1 -p --display-error-details --progress --colors",
     "deploy": "gulp upload",
     "prepublishOnly": "rm -rf lib&&tsc -p ./tsconfig.publish.config.json"
   },
