@@ -1,6 +1,6 @@
 {
   "name": "hypergl",
-  "version": "0.0.1",
+  "version": "0.0.1-beta.6",
   "description": "无",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -11,7 +11,7 @@
     "demo1": "webpack --env.demo=1 --display-error-details --progress --colors --watch",
     "build": "webpack --env.demo=1 --display-error-details --progress --colors",
     "deploy": "gulp upload",
-    "publish": "rm -rf lib&&tsc -d --outDir lib"
+    "prepublishOnly": "rm -rf lib&&tsc -p ./tsconfig.publish.config.json"
   },
   "author": "ldh",
   "license": "ISC",

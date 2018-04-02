@@ -2275,6 +2275,13 @@ humanize-ms@^1.2.0:
   dependencies:
     ms "^2.0.0"
 
+hypergl@0.0.1-beta.6:
+  version "0.0.1-beta.6"
+  resolved "https://registry.yarnpkg.com/hypergl/-/hypergl-0.0.1-beta.6.tgz#4c33f9f98e998b23a8eec35a05570cbf631b6a4d"
+  dependencies:
+    babylonjs "^3.1.1"
+    tslint "^5.9.1"
+
 iconv-lite@0.4.19, iconv-lite@^0.4.15:
   version "0.4.19"
   resolved "http://registry.npm.taobao.org/iconv-lite/download/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"

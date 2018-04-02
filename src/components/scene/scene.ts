@@ -4,7 +4,7 @@
 import * as BABYLON from 'babylonjs';
 import { Component } from '../../index';
 
-interface SceneProps {
+export interface SceneProps {
     physics?: boolean;
     gravity?: number[];
 }

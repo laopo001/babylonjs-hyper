@@ -44,6 +44,7 @@ export abstract class Component<P= any> {
     create() {
         this.inst['__component__'] = this;
     }
+    render(): Node<any> { return; }
 }
 
 

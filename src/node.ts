@@ -68,9 +68,9 @@ declare global {
     namespace JSX {
 
         // interface Element extends Node { }
-        // interface ElementClass extends Component<any> {
-        //     render(): Node;
-        // }
+        interface ElementClass extends Component<any> {
+            render(): Node;
+        }
         interface ElementAttributesProperty { props: {}; }
         // interface ElementChildrenAttribute { children: {}; }
         // interface IntrinsicAttributes extends Attributes { }

@@ -18,8 +18,7 @@
     ],
     "noImplicitAny": false,
     "typeRoots": [
-      "./node_modules/@types",
-      "type"
+      "./node_modules/@types"
     ],
     "outDir": "node_modules/hypergl",
     "types": [],
