@@ -16,7 +16,7 @@ function inspectArr(nums: number[]) {
 }
 
 export abstract class Component<P= any> {
-    props: Readonly<{ children?: HGLNode }> & Readonly<P>;
+    props: Readonly<Attributes> & Readonly<P>;
     type = 'Component';
     name: string;
     inst: any;

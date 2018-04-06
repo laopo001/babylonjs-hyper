@@ -15,6 +15,7 @@ export interface InternalContext {
     collisions?: BABYLON.PhysicsImpostor[];
     meshs: Mesh<any>[];
     shadowGeneratorRenderList: BABYLON.AbstractMesh[];
+    GUI?: BABYLON.GUI.AdvancedDynamicTexture;
 }
 
 export function createScene(root: Node, innerContext: InternalContext) {
@@ -65,8 +66,6 @@ export function run(node: Node, innerContext: InternalContext, context, parent) 
         // }
 
         return c;
-    } else {
-        console.error('error');
     }
 }
 

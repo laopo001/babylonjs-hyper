@@ -21,7 +21,8 @@
       "./node_modules/@types"
     ],
     "outDir": "node_modules/hypergl",
-    "types": [],
+    "types": [
+    ],
     "allowSyntheticDefaultImports": true
   },
   "files": [

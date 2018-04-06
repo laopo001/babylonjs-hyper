@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "babylonjs": "^3.1.1",
+    "babylonjs-gui": "^3.1.1",
     "tslint": "^5.9.1"
   },
   "devDependencies": {

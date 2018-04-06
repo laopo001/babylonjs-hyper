@@ -479,6 +479,10 @@ babylon@^6.18.0:
   version "6.18.0"
   resolved "http://registry.npm.taobao.org/babylon/download/babylon-6.18.0.tgz#af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
 
+babylonjs-gui@^3.1.1:
+  version "3.1.1"
+  resolved "http://npm.dadigua.win/babylonjs-gui/-/babylonjs-gui-3.1.1.tgz#12f1b6e7f6a46801b28c548c0ed6b330564f233a"
+
 babylonjs@^3.1.1:
   version "3.1.1"
   resolved "http://npm.dadigua.win/babylonjs/-/babylonjs-3.1.1.tgz#6536c180e4b4006d61c77fcba1a2687dbb296331"
@@ -2274,13 +2278,6 @@ humanize-ms@^1.2.0:
   resolved "http://registry.npm.taobao.org/humanize-ms/download/humanize-ms-1.2.1.tgz#c46e3159a293f6b896da29316d8b6fe8bb79bbed"
   dependencies:
     ms "^2.0.0"
-
-hypergl@0.0.1-beta.6:
-  version "0.0.1-beta.6"
-  resolved "https://registry.yarnpkg.com/hypergl/-/hypergl-0.0.1-beta.6.tgz#4c33f9f98e998b23a8eec35a05570cbf631b6a4d"
-  dependencies:
-    babylonjs "^3.1.1"
-    tslint "^5.9.1"
 
 iconv-lite@0.4.19, iconv-lite@^0.4.15:
   version "0.4.19"

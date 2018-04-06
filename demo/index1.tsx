@@ -3,10 +3,14 @@
  */
 
 import PGL, {
-    Sphere, render, Scene, Box, ArcRotateCamera, DirectionalLight, Ground,
-    Enity, HemisphericLight, FreeCamera, Collision, StandardMaterial, Mesh,
-    ReflectionTexture, Cylinder
+    render, Scene, ArcRotateCamera, DirectionalLight,
+    Enity, HemisphericLight, FreeCamera, Collision, StandardMaterial,
+    ReflectionTexture,
 } from '../src/index';
+import { Cylinder, Box, Sphere, Ground, Mesh } from '../src/3d.component';
+import { FullscreenGUI, Button } from '../src/gui.component';
+
+
 import { randomEnum, randomRange } from '../src/util';
 import * as BABYLON from 'babylonjs';
 
@@ -29,6 +33,8 @@ class Root extends Enity<any> {
     currBox: Mesh<any>;
     gamer: Mesh<any>;
     camera: ArcRotateCamera;
+    state = '';
+    button;
     boxCollideHander(self: any, collided: any) {
         if (PGL.getComponent(collided.object) instanceof Cylinder) {
             self.object.material.diffuseColor = new BABYLON.Color3(Math.random(), Math.random(), Math.random());
@@ -57,14 +63,13 @@ class Root extends Enity<any> {
     }
 
     init() {
-        console.log('game start');
         setTimeout(() => {
             // 动态添加Box组件
             this.append(
                 <Box cast position={[-5, 5, 5]} rotation={[0, Math.PI / 4, 0]} width={2} height={1} depth={2}>
                     <Collision mass={10} restitution={0.3} onCollide={this.boxCollideHander.bind(this)} />
                 </Box>,
-                <Cylinder cast diameterTop={0.3} position={[0, 5, 0]} >
+                <Cylinder cast diameterTop={0.3} position={[0, 7, 0]} >
                     <Collision angularFactor={[0, 1, 0]} type={BABYLON.PhysicsImpostor.CylinderImpostor} mass={10} friction={0} restitution={0.1} onCollide={(self: any, collided: any) => {
                         if (this.currBox === PGL.getComponent(collided.object)) return;
                         self.setLinearVelocity(new BABYLON.Vector3(0, 0, 0));
@@ -79,7 +84,8 @@ class Root extends Enity<any> {
                             }
                         }
                         if (PGL.getComponent(collided.object) instanceof Ground) {
-                            console.log('game over');
+                            this.state = 'end';
+                            console.log(this.state);
                             collided.object.position.y = -10000;
                         }
                     }} />
@@ -91,6 +97,7 @@ class Root extends Enity<any> {
         let level = 0;
         let timer;
         canvas.addEventListener('mousedown', () => {
+            if (this.state !== 'start') { return; }
             this.gamer.collision.linearFactor = new BABYLON.Vector3(1, 1, 1);
             console.log('down');
             timer = setInterval(() => {
@@ -118,6 +125,13 @@ class Root extends Enity<any> {
     }
     create() {
         return [
+            <FullscreenGUI >
+                <Button ref={(x) => { this.button = x; }} click={() => {
+                    this.button.inst.isVisible = false;
+                    this.state = 'start';
+                    console.log(this.state);
+                }} imgUrl='https://www.babylonjs-playground.com/textures/grass.png' >开始游戏</Button>
+            </FullscreenGUI>,
             <ArcRotateCamera ref={x => { this.camera = x; }} target={[0, 0, 0]} radius={20} />,
             <Box name='cs' cast rotation={[0, Math.PI / 4, 0]} position={[0, 5, 0]} scaling={[1, 1, 1]} width={2} height={1} depth={2}>
                 <Collision mass={10} restitution={0.3} onCollide={this.boxCollideHander.bind(this)} />
@@ -134,4 +148,4 @@ class Root extends Enity<any> {
 render(<Scene physics>
     <DirectionalLight position={[20, 40, 20]} target={[-1, -2, -1]} shadow />
     <Root />
-</Scene>, canvas, { debugger: true });
+</Scene>, canvas, { debugger: false });

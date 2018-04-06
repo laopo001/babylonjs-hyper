@@ -46,6 +46,9 @@ module.exports = function (env, webpackConfig) {
             alias: {
             }
         },
+        externals: {
+
+        },
         devtool: 'source-map'
     };
 }
