@@ -2,7 +2,7 @@
  * @author dadigua
  */
 import * as BABYLON from 'babylonjs';
-import {  Mesh } from './index';
+import { Mesh } from './index';
 
 export interface CylinderProps {
     height?: number;
@@ -24,6 +24,7 @@ export class Cylinder extends Mesh<CylinderProps> {
     create() {
         let { props, innerContext } = this;
         this.inst = BABYLON.MeshBuilder.CreateCylinder(props.name, props, innerContext.scene);
+        // this.inst.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_NONE;
         super.create();
     }
 }

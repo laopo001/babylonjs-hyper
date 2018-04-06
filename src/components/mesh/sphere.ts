@@ -5,8 +5,8 @@ import * as BABYLON from 'babylonjs';
 import { Component } from '../../component';
 import { Mesh } from './index';
 export interface SphereProps {
-    segments: number;
-    diameter: number;
+    segments?: number;
+    diameter?: number;
     updatable?: boolean;
     sideOrientation?: number;
 }

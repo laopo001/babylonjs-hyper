@@ -38,7 +38,6 @@ class Root extends Enity<any> {
 
     }
     add() {
-
         let r = randomEnum<number>(-1, 1);
         if (r > 0) {
             this.direction = 'right';
@@ -55,7 +54,6 @@ class Root extends Enity<any> {
             </Box>
         );
         this.glass.refresh();
-
     }
 
     init() {
@@ -67,15 +65,11 @@ class Root extends Enity<any> {
                     <Collision mass={10} restitution={0.3} onCollide={this.boxCollideHander.bind(this)} />
                 </Box>,
                 <Cylinder cast diameterTop={0.3} position={[0, 5, 0]} >
-                    <Collision type={BABYLON.PhysicsImpostor.CylinderImpostor} mass={10} friction={0} restitution={0.1} onCollide={(self: any, collided: any) => {
+                    <Collision angularFactor={[0, 1, 0]} type={BABYLON.PhysicsImpostor.CylinderImpostor} mass={10} friction={0} restitution={0.1} onCollide={(self: any, collided: any) => {
                         if (this.currBox === PGL.getComponent(collided.object)) return;
                         self.setLinearVelocity(new BABYLON.Vector3(0, 0, 0));
-                        self.setAngularVelocity(new BABYLON.Vector3(0, 0, 0));
-                        collided.mass = 0;
-                        // collided.setLinearVelocity(new BABYLON.Vector3(0, 0, 0));
-                        // collided.setAngularVelocity(new BABYLON.Vector3(0, 0, 0));
                         this.gamer = PGL.getComponent(self.object);
-
+                        this.gamer.collision.linearFactor = new BABYLON.Vector3(0, 1, 0);
                         if (PGL.getComponent(collided.object) instanceof Box) {
                             if (this.currBox != null) {
                                 this.currBox = PGL.getComponent(collided.object);
@@ -97,6 +91,7 @@ class Root extends Enity<any> {
         let level = 0;
         let timer;
         canvas.addEventListener('mousedown', () => {
+            this.gamer.collision.linearFactor = new BABYLON.Vector3(1, 1, 1);
             console.log('down');
             timer = setInterval(() => {
                 let y = this.currBox.inst.scaling.y - 0.05;
@@ -111,7 +106,6 @@ class Root extends Enity<any> {
             if (timer) {
                 clearInterval(timer);
                 this.gamer.collision.inst.setLinearVelocity(new BABYLON.Vector3(-1 * level / 2, level, (this.direction === 'right' ? 1 : -1) * level / 2));
-                this.gamer.collision.inst.setAngularVelocity(new BABYLON.Vector3(0, 0, 0));
                 this.currBox.inst.scaling = new BABYLON.Vector3(1, 1, 1);
                 level = 0;
             }
