@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <meta name="charset" content="utf-8">
+    <title>test</title>
+    
+    <style>
+        body{
+            padding:0;
+            margin: 0;
+        }
+        html{
+            overflow: hidden;
+        }
+    </style>
+
+<link type="text/css" rel="stylesheet" href="chrome-extension://ckphchjljlekndhjifdfpmmnlaijimcd/style.css"><link type="text/css" rel="stylesheet" href="chrome-extension://pioclpoplcdbaefihamjohnefbikjilc/content.css"></head>
+<body screen_capture_injected="true" style="">
+
+
+<iframe id="main" style="width: 100%; height: 384px;display:none;" src=""></iframe>
+    <script>
+        window.onload=function(){
+            var a=document.getElementById('main');
+            a.style.height=window.innerHeight+'px';
+	    a.style.display='block';
+	    a.src=location.search.replace(/\?url=/,'');
+        }
+    </script>
+
+
+
+
+
+
+
+</body></html>
