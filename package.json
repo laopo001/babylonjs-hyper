@@ -21,15 +21,15 @@
     "tslint": "^5.9.1"
   },
   "devDependencies": {
-    "ali-oss": "^4.13.2",
+    "ali-oss": "^6.1.0",
     "browser-sync": "^2.18.12",
-    "browser-sync-webpack-plugin": "^1.2.0",
+    "browser-sync-webpack-plugin": "^2.2.2",
     "co": "^4.6.0",
-    "gulp": "^3.9.1",
-    "gulp-replace": "^0.6.1",
-    "jest": "^21.2.1",
-    "ts-loader": "^0.8.2",
-    "typescript": "^2.8.0-insiders.20180127",
-    "webpack": "^2.7.0"
+    "gulp": "^4.0.0",
+    "gulp-replace": "^1.0.0",
+    "jest": "^24.7.0",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.4.1",
+    "webpack": "^4.29.6"
   }
 }
